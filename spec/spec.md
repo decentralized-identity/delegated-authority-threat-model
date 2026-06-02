@@ -11,11 +11,11 @@ Ratified Versions:
 
 Editors:
 
-- Debbi Bucci
+- Debbi Bucci (@debbucci)
 
 Contributors:
 
-- Debbie Bucci
+- Debbie Bucci (@debbucci)
 - Juan Caballero (@bumblefudge)
 - Alan Karp (@alanhkarp)
 
