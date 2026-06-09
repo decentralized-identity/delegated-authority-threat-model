@@ -29,10 +29,10 @@ Except where otherwise noted, this work by the [Decentralized Identity Foundatio
 
 **Related Specifications:**
 
-~ [Problem Space Report](https://identity.foundation/delegated-authority-report/)
-~ Threat Model (You are here)
-~ [Governance Considerations](https://identity.foundation/governance-of-delegated-authority-report/)
-~ [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM%20)
+- [Problem Space Report](https://identity.foundation/delegated-authority-report/)
+- Threat Model (You are here)
+- [Governance Considerations](https://identity.foundation/governance-of-delegated-authority-report/)
+- [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM%20)
 
 ## Abstract
 
