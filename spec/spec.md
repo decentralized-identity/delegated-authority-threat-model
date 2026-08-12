@@ -5,13 +5,13 @@
 Specification Status: Editor's Draft
 
 Latest Draft:
-[identity.foundation/delegated-authority-report](https://identity.foundation/delegated-authority-report)
+[identity.foundation/delegated-authority-threat-model](https://identity.foundation/delegated-authority-threat-model)
 
 Ratified Versions:
 
 Editors:
 
-- Debbi Bucci (@debbucci)
+- Debbie Bucci (@debbucci)
 
 Contributors:
 
@@ -20,9 +20,9 @@ Contributors:
 - Alan Karp (@alanhkarp)
 
 Participate:
-~ [GitHub repo](https://github.com/decentralized-identity/governance-of-delegated-authority-report)
-~ [File a bug](https://github.com/decentralized-identity/governance-of-delegated-authority-report/issues)
-~ [Commit history](https://github.com/decentralized-identity/governance-of-delegated-authority-report/commits/main)
+~ [GitHub repo](https://github.com/decentralized-identity/delegated-authority-threat-model)
+~ [File a bug](https://github.com/decentralized-identity/delegated-authority-threat-model/issues)
+~ [Commit history](https://github.com/decentralized-identity/delegated-authority-threat-model/commits/main)
 ~ [Working Group](https://identity.foundation/working-groups/trusted-agents.html)
 
 Except where otherwise noted, this work by the [Decentralized Identity Foundation](https://identity.foundation/) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
@@ -32,7 +32,7 @@ Except where otherwise noted, this work by the [Decentralized Identity Foundatio
 - [Problem Space Report](https://identity.foundation/delegated-authority-report/)
 - Threat Model (You are here)
 - [Governance Considerations](https://identity.foundation/governance-of-delegated-authority-report/)
-- [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM%20)
+- [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM)
 
 ## Abstract
 
@@ -46,7 +46,7 @@ The paper concludes with a requirements statement for standards communities: spe
 
 The central claim of this paper is that delegated authority must be evaluated not only as a credential, permission, or relationship, but as a runtime governance state.
 
-This is **not** a system compromise model. It is a failure-of-authority model under valid system operation — the threat of the valid request made for an invalid reason. The threat surface it addresses is not one in which an attacker who breaks through the door. It is one in which the system fails silently and keeps running after the reason it was authorized to run has changed or disappeared.
+This is **not** a system compromise model. It is a failure-of-authority model under valid system operation — the threat of the valid request made for an invalid reason. The threat surface it addresses is not one in which an attacker breaks through the door. It is one in which the system fails silently and keeps running after the reason it was authorized to run has changed or disappeared.
 
 Governance of delegated authority fails in five distinct ways. Authority may be improperly **bounded** — granted beyond the scope required or not constrained across delegation chains. It may be insufficiently **attested** — leaving no verifiable record (or an inadequate, partial record) linking authorization to execution. It may be inadequately **enforced** — checked at issuance but not at the moment of action. It may fail at the **authentication** layer — where identity can be established but continuing authority or legitimacy cannot. And it may be **misinterpreted** — where the instruction is valid, correctly authorized and correctly executed, and still violates the subject's intent or the policies of the system.
 
@@ -54,7 +54,7 @@ All five conditions are amplified by time. Authority valid at issuance may not r
 
 In AI-mediated systems the problem is further amplified. Autonomous agents execute at machine speed and scale without the social correction mechanisms human actors bring to delegation. A person who loses authority mid-task stops. An autonomous agent operating without escalation paths does not. The failure modes this paper catalogs are not new. Agents make them impossible to ignore.
 
-One variable this paper treats as first-class has been absent from most governance frameworks: subject agency state. Whether the person behind the delegation can still authorize, redirect, revoke, or validate the action at the moment of execution is a governance variable, not an edge case. Section 9 develops this fully.
+One variable this paper treats as first-class has been absent from most governance frameworks: subject agency state. Whether the person behind the delegation can still authorize, redirect, revoke, or validate the action at the moment of execution is a governance variable, not an edge case. The Human Condition Layer develops this fully.
 
 The scope of this paper is delegation-specific failures only. It assumes functioning system infrastructure and addresses what breaks in the authority layer when that infrastructure operates as designed. Each failure mode described here has a documented analog in deployed systems and emerging agent architectures.
 
@@ -82,7 +82,7 @@ When these functions collapse, governance becomes unreliable. Authorization with
 
 These failures represent a governance form of TOCTOU vulnerability. The authority validated at issuance is not necessarily the authority present at execution, and this assumption grows more dangerous as autonomy (and rates of impersonation) increase over time.
 
-This architecture also depends on a runtime signal largely absent from existing frameworks: *subject agency **state***. A delegation may be correctly bounded, fully attested, properly enforced, and successfully authenticated — and still fail because subject agency state was never evaluated. It belongs in the architecture as a first-class concept, and cannot work safely if appended to it as an afterthought or extension. Section 9 develops this idea fully.
+This architecture also depends on a runtime signal largely absent from existing frameworks: *subject agency **state***. A delegation may be correctly bounded, fully attested, properly enforced, and successfully authenticated — and still fail because subject agency state was never evaluated. It belongs in the architecture as a first-class concept, and cannot work safely if appended to it as an afterthought or extension. The Human Condition Layer develops this idea fully.
 
 ## Failure Mode Category One: Authority Not Properly Bounded
 
@@ -155,7 +155,7 @@ Time amplifier: identity alone is insufficient for accountability when authority
 
 Enforcement is the function that makes governance real. A system that authorizes without enforcing is not a governed system. It is a documented one.
 
-## Policy defined but not operationalized
+### Policy defined but not operationalized
 
 A governance policy with no operational path to enforcement is an optimistic statement of intentions. Agents do not pause to consult documentation, much less contracts and charters. If operational boundaries do not reflect current policy, the policy does not in fact govern the action.
 
@@ -181,7 +181,7 @@ When conditions change in ways that require a governance transition, a governed 
 
 ### Shadow delegate
 
-An authorized agent may invoke tools, APIs, or sub-processes that act on behalf of the subject without the subject having authorized that extension. The shadow delegate cannot exceed the authority held by the delegating agent — it is technically bounded. The failure is not authority expansion. It is policy violation and accountability invisibility. The subject authorized the agent. The agent extended that authority without explicit permission to do so. This failure is structurally invisible in systems that do not track the full delegation chain. The audit log shows authorized agent activity. It does not show the agent sub-delegating to a tool, API, or subprocess in a way that extends or ignores the scope if its own authority (because this subdelegation is not a verbosely-logged event),  or whether that extension was permitted by governance policy.
+An authorized agent may invoke tools, APIs, or sub-processes that act on behalf of the subject without the subject having authorized that extension. The shadow delegate cannot exceed the authority held by the delegating agent — it is technically bounded. The failure is not authority expansion. It is policy violation and accountability invisibility. The subject authorized the agent. The agent extended that authority without explicit permission to do so. This failure is structurally invisible in systems that do not track the full delegation chain. The audit log shows authorized agent activity. It does not show the agent sub-delegating to a tool, API, or subprocess in a way that extends or ignores the scope of its own authority (because this subdelegation is not a verbosely-logged event),  or whether that extension was permitted by governance policy.
 
 ### Confused deputy 2.0
 
@@ -247,7 +247,7 @@ As delegation passes through a chain, intent loses fidelity at each hop. Semanti
 
 ### Subject agency state and semantic failure
 
-When a subject is fully capable, semantic failures are correctable. When subject agency state is compromised, the semantic gap becomes unresolvable without execution-time evaluation. The agent cannot distinguish between an instruction the subject still stands behind and one that no longer reflects their current intent. This is the dimension the human condition layer addresses, developed fully in Section 9\.
+When a subject is fully capable, semantic failures are correctable. When subject agency state is compromised, the semantic gap becomes unresolvable without execution-time evaluation. The agent cannot distinguish between an instruction the subject still stands behind and one that no longer reflects their current intent. This is the dimension the human condition layer addresses, developed fully in that section\.
 
 ### Context collapse
 
@@ -449,7 +449,7 @@ Agents are deployed today on behalf of human subjects whose conditions change, w
 
 The five failure categories are structural, not incidental. They exist because the governance architecture was designed for human-paced execution and has not yet been extended to agent-paced execution. The time amplifier makes each category worse over time. The AI amplifier makes each category worse at scale. Compounding failures occur when categories interact without a governance layer that takes current authority state as a first-class input.
 
-The human condition layer described in Section 9 is the contribution this paper makes that no existing framework addresses. Subject agency state can be modeled as a runtime governance variable. It is the normal condition of human life applied to agent governance by humans. Every person ages. Every person experiences illness, interruption, and incapacity. People change their minds. Every agent system deployed on behalf of a human subject will eventually encounter a subject whose agency state has changed. The governance architecture must be designed for that reality from the beginning.
+The human condition layer described above is the contribution this paper makes that no existing framework addresses. Subject agency state can be modeled as a runtime governance variable. It is the normal condition of human life applied to agent governance by humans. Every person ages. Every person experiences illness, interruption, and incapacity. People change their minds. Every agent system deployed on behalf of a human subject will eventually encounter a subject whose agency state has changed. The governance architecture must be designed for that reality from the beginning.
 
 This paper asks three things.
 
@@ -541,13 +541,13 @@ The Spring 2026 COI working sessions identified agentic AI considerations for in
 | Respond (RS) | Incident response playbooks, identity containment, escalation | Category 3: Enforced | Escalation paths are identified as a requirement. This paper specifies the governance architecture that makes escalation automatic rather than manual — triggered by subject agency state evaluation, not human decision. |
 | Recover (RC) | Fail-safe behavior, recovery planning, validation after recovery | Category 3: Enforced | Fail-closed behavior is identified as a default. This paper provides the governance basis for that requirement — in the absence of a positive determination of current authority, the appropriate default is to deny, not to continue. |
 
-## **What NIST has not yet addressed** {#what-nist-has-not-yet-addressed}
+## What NIST has not yet addressed
 
-Three areas in this paper have no current equivalent in NIST’s active framing.
+Four areas in this paper have no current equivalent in NIST’s active framing.
 
 First: runtime governance state as a delegation continuity variable. NIST addresses agent identity and access control. It does not address whether the human subject behind a delegation can still authorize, redirect, or revoke delegated authority at the moment of execution. This paper identifies runtime governance continuity as a distinct operational requirement.
 
-Second: mission lifecycle as distinct from credential lifecycle. NIST addresses credential management and access control. It does not specify when a delegated mission should terminate independently of credential validity. This is the credential lifecycle versus mission lifecycle distinction described in Section 10.2.
+Second: mission lifecycle as distinct from credential lifecycle. NIST addresses credential management and access control. It does not specify when a delegated mission should terminate independently of credential validity. This is the credential lifecycle versus mission lifecycle distinction described under Credential lifecycle and mission lifecycle must be decoupled and both specified.
 
 Third: semantic interpretation failure as a governance category. NIST addresses prompt injection primarily as a security control problem. This paper identifies a broader governance category — authority not properly interpreted — in which an instruction may be technically valid, correctly authorized, and correctly executed, yet still violate the operational constraints of the originating principal. That failure mode is not currently addressed in NIST’s agentic AI framing.
 
@@ -558,7 +558,7 @@ These gaps represent actionable areas for continued engagement as NCCoE and NIST
 
 ## Appendix C: Delegation Lifecycle and Execution Gap — Diagram Reference
 
-This appendix describes the delegation lifecycle diagram concept referenced in Section 10\. The diagram has not yet been rendered as a final figure. The description below provides the specification for that diagram.
+This appendix describes the delegation lifecycle diagram concept referenced in Implications for Standards Development. The diagram has not yet been rendered as a final figure. The description below provides the specification for that diagram.
 
 The diagram shows four stages across a horizontal timeline.
 
