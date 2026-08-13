@@ -558,7 +558,7 @@ These gaps represent actionable areas for continued engagement as NCCoE and NIST
 
 ## Appendix C: Delegation Lifecycle and Execution Gap — Diagram Reference
 
-This appendix describes the delegation lifecycle diagram concept referenced in Implications for Standards Development\. The diagram has not yet been rendered as a final figure. The description below provides the specification for that diagram.
+This appendix describes the delegation lifecycle diagram concept referenced in Implications for Standards Development. The diagram has not yet been rendered as a final figure. The description below provides the specification for that diagram.
 
 The diagram shows four stages across a horizontal timeline.
 
