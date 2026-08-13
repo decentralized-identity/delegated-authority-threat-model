@@ -247,7 +247,7 @@ As delegation passes through a chain, intent loses fidelity at each hop. Semanti
 
 ### Subject agency state and semantic failure
 
-When a subject is fully capable, semantic failures are correctable. When subject agency state is compromised, the semantic gap becomes unresolvable without execution-time evaluation. The agent cannot distinguish between an instruction the subject still stands behind and one that no longer reflects their current intent. This is the dimension the human condition layer addresses, developed fully in that section\.
+When a subject is fully capable, semantic failures are correctable. When subject agency state is compromised, the semantic gap becomes unresolvable without execution-time evaluation. The agent cannot distinguish between an instruction the subject still stands behind and one that no longer reflects their current intent. This is the dimension the human condition layer addresses, developed fully in that section.
 
 ### Context collapse
 
@@ -579,7 +579,7 @@ The execution gate architecture operates across three layers. The human source e
 
 ## Appendix D: Subject Agency State — Quick Reference for Implementers
 
-This table summarizes the five subject agency states defined in Section 9, their observable indicators, the governance implications for each state, and the authority path the system should activate.
+This table summarizes the five subject agency states defined in The Human Condition Layer, their observable indicators, the governance implications for each state, and the authority path the system should activate.
 
 | Subject agency state | Observable indicators | System response | Authority path |
 | ----- | ----- | ----- | ----- |
