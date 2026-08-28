@@ -20,6 +20,7 @@ Contributors:
 - Alan Karp (@alanhkarp)
 
 Participate:
+
 ~ [GitHub repo](https://github.com/decentralized-identity/delegated-authority-threat-model)
 ~ [File a bug](https://github.com/decentralized-identity/delegated-authority-threat-model/issues)
 ~ [Commit history](https://github.com/decentralized-identity/delegated-authority-threat-model/commits/master)
@@ -27,7 +28,7 @@ Participate:
 
 Except where otherwise noted, this work by the [Decentralized Identity Foundation](https://identity.foundation/) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
 
-**Related Specifications:**
+Related Specifications:
 
 - [Problem Space Report](https://identity.foundation/delegated-authority-report/)
 - [Specification Evaluations](https://identity.foundation/delegated-authority-evaluations)
