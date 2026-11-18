@@ -1,22 +1,33 @@
 {
   "specs": [
     {
-      "title": "Threat Model for Delegated Authority in AI-Mediated Systems",
+      "title": "Delegated Authority Threat Model v1.0 Preview",
       "spec_directory": "./spec",
-      "output_path": "./",
-      "logo": "https://rawcdn.githack.com/decentralized-identity/decentralized-identity.github.io/a3ca39717e440302d1fd99a796e7f00e1c42eb2d/images/logo-flat.svg",
+      "output_path": "./build/",
+      "logo": "./logo.svg",
       "logo_link": "https://identity.foundation/working-groups/trusted-agents.html",
       "source": {
         "host": "github",
         "account": "decentralized-identity",
         "repo": "delegated-authority-threat-model"
       },
-      "external_specs": [
+      "external_specs": [],
+      "katex": true
+    },
         {
-          "PE": "https://identity.foundation/presentation-exchange"
-        }
-      ],
+      "title": "Delegated Authority Threat Model v1.0-rc1",
+      "spec_directory": "./spec/v1.0-rc1/",
+      "output_path": "./build/v1.0-rc1/",
+      "logo": "../logo.svg",
+      "logo_link": "https://identity.foundation/working-groups/trusted-agents.html",
+      "source": {
+        "host": "github",
+        "account": "decentralized-identity",
+        "repo": "delegated-authority-threat-model"
+      },
+      "external_specs": [],
       "katex": true
     }
   ]
 }
+

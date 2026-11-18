@@ -1,42 +1,34 @@
-# Threat Model for Delegated Authority in AI-Mediated Systems
+# Threat Model for Delegated Authority in AI-Mediated Systems v1.0 Preview
 
 *A Governance Lens on Failure Modes*
 
-Specification Status: Editor's Draft
+==================
 
-Latest Draft:
-[identity.foundation/delegated-authority-threat-model](https://identity.foundation/delegated-authority-threat-model)
+**Specification Status:** Working Group Consensus Draft (Pending DIF Steering Committee Approval)
 
-Ratified Versions:
+**Latest Draft:**
+  [https://identity.foundation/delegated-authority-threat-model](https://identity.foundation/delegated-authority-threat-model)
+
+**Ratified Versions:**
+
+* [v1.0-rc1](./v1.0-rc1/): Working Group consensus, 17 November 2026
 
 Editors:
 
-- Debbie Bucci (@debbucci)
+~ [Deb Bucci](https://www.linkedin.com/in/debbie-bucci/) ([Deb B Labs](https://docs.google.com/document/d/e/2PACX-1vQoFsZd-vSLZ0nr278sQ4t2UBK3-zrVFi1yt-uhM4u47_gOIL2LP4dd6SGEXkMBlL5dWwv08Nx9IIr4/pub))
 
 Contributors:
 
-- Debbie Bucci (@debbucci)
-- Juan Caballero (@bumblefudge)
-- Alan Karp (@alanhkarp)
+~ [Juan Caballero](https://www.linkedin.com/in/juan-caballero/)  ([learningProof UG](https://learningproof.xyz/))
+~ [Alan Karp](https://www.linkedin.com/in/alanhkarp/) - [SitePassword](https://github.com/alanhkarp/SitePassword/)
 
 Participate:
 
 ~ [GitHub repo](https://github.com/decentralized-identity/delegated-authority-threat-model)
 ~ [File a bug](https://github.com/decentralized-identity/delegated-authority-threat-model/issues)
 ~ [Commit history](https://github.com/decentralized-identity/delegated-authority-threat-model/commits/master)
-~ [Working Group](https://identity.foundation/working-groups/trusted-agents.html)
 
-Except where otherwise noted, this work by the [Decentralized Identity Foundation](https://identity.foundation/) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
-
-Related Specifications:
-
-- [Problem Space Report](https://identity.foundation/delegated-authority-report/)
-- [Specification Evaluations](https://identity.foundation/delegated-authority-evaluations)
-- Threat Model (You are here)
-- [Governance Considerations](https://identity.foundation/governance-of-delegated-authority-report/)
-- [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM)
-
-
+------------------------------------
 
 ## Abstract
 
@@ -45,6 +37,14 @@ Delegated authority in AI-mediated systems fails not at the moment of issuance b
 This paper introduces “subject agency state” as a first-class governance variable: whether the person behind a delegation can still authorize, redirect, revoke, or validate the action at the moment of execution. This signal is absent from current authorization frameworks and unspecified by current standards. This absence is not an oversight. It is a structural consequence of frameworks that assume subject availability without modeling it.
 
 The paper concludes with a requirements statement for standards communities: specify execution-time evaluation of delegated authority, decouple credential lifecycle from mission lifecycle, define subject agency state as a runtime signal, and establish proof of continuity as a verifiable property of delegation chains. Existing frameworks — OAuth, GNAP, KERI, ACDC, and related work — provide the substrate. The governance semantics required above that substrate remain unspecified. That specification is the work this paper asks for — a single interoperable governance layer that composes with each protocol rather than extending any one of them separately.
+
+### Related Specifications
+
+- [Problem Space Report](https://identity.foundation/delegated-authority-report/)
+- [Specification Evaluations](https://identity.foundation/delegated-authority-evaluations)
+- Threat Model (You are here)
+- [Governance Considerations](https://identity.foundation/governance-of-delegated-authority-report/)
+- [Agentic-Delegation User-Story Walk-through](https://www.youtube.com/watch?v=u-uWl_s0PPM)
 
 ## Introduction
 
