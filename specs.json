@@ -3,7 +3,7 @@
     {
       "title": "Delegated Authority Threat Model v1.0 Preview",
       "spec_directory": "./spec",
-      "output_path": "./",
+      "output_path": "./build/",
       "logo": "./logo.svg",
       "logo_link": "https://identity.foundation/working-groups/trusted-agents.html",
       "source": {
@@ -17,7 +17,7 @@
         {
       "title": "Delegated Authority Threat Model v1.0-rc1",
       "spec_directory": "./spec/v1.0-rc1/",
-      "output_path": "./v1.0-rc1/",
+      "output_path": "./build/v1.0-rc1/",
       "logo": "../logo.svg",
       "logo_link": "https://identity.foundation/working-groups/trusted-agents.html",
       "source": {
