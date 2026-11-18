@@ -8,9 +8,9 @@
         <meta name="color-scheme" content="light dark">
         
 
-        <title>Spec-Up Example</title>
+        <title>Delegated Authority Threat Model v1.0 Preview</title>
 
-        <link rel="icon" href="logo.svg">
+        <link rel="icon" href="./logo.svg">
 
         <script>(function(){"use strict";(function(){const r="spec-up-color-scheme",e=document.documentElement,o=window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)"):null;let t="auto";try{const a=window.localStorage.getItem(r);(a==="light"||a==="dark"||a==="auto")&&(t=a)}catch{}const c=t==="auto"?o&&o.matches?"dark":"light":t;e.classList.remove("wa-light","wa-dark"),e.classList.add(c==="dark"?"wa-dark":"wa-light"),e.dataset.theme=c,e.dataset.themePreference=t,e.style.colorScheme=c})()})();</script><link href="assets/compiled/head.css" rel="stylesheet"/><script src="assets/compiled/head.js"></script><link href="assets/compiled/katex.css" rel="stylesheet"/>
       </head>
@@ -70,9 +70,9 @@
               <wa-button data-toggle-nav size="small" appearance="plain" variant="neutral" class="spec-up-nav-toggle" aria-label="Open table of contents">
                 <wa-icon library="spec-up" name="bars"></wa-icon>
               </wa-button>
-              <a class="spec-up-brand-mark spec-up-brand-mark--logo" href="https://github.com/decentralized-identity/spec-up"><img src="logo.svg" alt="Spec-Up Example logo"/></a>
+              <a class="spec-up-brand-mark spec-up-brand-mark--logo" href="https://identity.foundation/working-groups/trusted-agents.html"><img src="./logo.svg" alt="Delegated Authority Threat Model v1.0 Preview logo"/></a>
               <div class="spec-up-brand-copy">
-                <strong>Spec-Up Example</strong>
+                <strong>Delegated Authority Threat Model v1.0 Preview</strong>
               </div>
             </div>
             
@@ -116,737 +116,506 @@
           </header>
 
           <div slot="navigation-header" class="spec-up-navigation-title">
-            <strong>Spec-Up Example</strong>
+            <strong>Delegated Authority Threat Model v1.0 Preview</strong>
           </div>
 
           <nav id="toc" slot="navigation" aria-label="Table of contents">
-            <ul class="toc"><li><a href="#abstract">Abstract</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#table-of-contents">Table of Contents</a></li><li><a href="#term-references">Term References</a><ul><li><a href="#definition-lists">Definition Lists</a></li><li><a href="#table-defined-terms">Table-defined Terms</a></li><li><a href="#external-term-references">External Term References</a></li></ul></li><li><a href="#blockquote">Blockquote</a></li><li><a href="#notices">Notices</a></li><li><a href="#content-insertion">Content Insertion</a></li><li><a href="#tables">Tables</a></li><li><a href="#sequence-diagrams">Sequence Diagrams</a></li><li><a href="#flows">Flows</a></li><li><a href="#charts">Charts</a></li><li><a href="#syntax-highlighting">Syntax Highlighting</a></li><li><a href="#tex-math-equations">TeX Math Equations</a></li><li><a href="#tab-panels">Tab Panels</a></li><li><a href="#summary-blocks">Summary Blocks</a></li><li><a href="#badges">Badges</a></li><li><a href="#progress">Progress</a></li><li><a href="#relative-time">Relative Time</a></li><li><a href="#copy">Copy</a></li><li><a href="#qr-codes">QR Codes</a></li><li><a href="#carousel">Carousel</a></li><li><a href="#fancy-links">Fancy Links</a><ul><li><a href="#github">GitHub</a></li></ul></li><li><a href="#external-spec-references">External Spec References</a><ul><li><a href="#default-references">Default References</a></li><li><a href="#normative-references">Normative References</a></li><li><a href="#informative-references">Informative References</a></li></ul></li></ul>
+            <ul class="toc"><li><a href="#abstract">Abstract</a><ul><li><a href="#related-specifications">Related Specifications</a></li></ul></li><li><a href="#introduction">Introduction</a></li><li><a href="#the-governance-architecture-under-threat">The Governance Architecture Under Threat</a></li><li><a href="#failure-mode-category-one-authority-not-properly-bounded">Failure Mode Category One: Authority Not Properly Bounded</a><ul><li><a href="#scope-granted-exceeds-scope-required">Scope granted exceeds scope required</a></li><li><a href="#attenuation-not-enforced-across-delegation-chains">Attenuation not enforced across delegation chains</a></li><li><a href="#redelegation-without-constraint-authority-creep">Redelegation without constraint — authority creep</a></li><li><a href="#duration-and-revocation-not-defined-or-honored">Duration and revocation not defined or honored</a></li><li><a href="#intent-propagation-gap-delegation-chains-carry-credentials-but-not-the-subjects-current-intent">Intent propagation gap — delegation chains carry credentials but not the subject's current intent</a></li><li><a href="#composability-exploited-combining-delegations-to-exceed-any-single-grant">Composability exploited — combining delegations to exceed any single grant</a></li></ul></li><li><a href="#failure-mode-category-two-authority-not-properly-attested">Failure Mode Category Two: Authority Not Properly Attested</a><ul><li><a href="#there-is-no-cryptographic-or-verifiable-binding-between-authorization-and-execution">There is no cryptographic or verifiable binding between authorization and execution</a></li><li><a href="#delegation-chain-cannot-be-reconstructed-after-the-fact">Delegation chain cannot be reconstructed after the fact</a></li><li><a href="#identity-without-provenance-of-authority-is-insufficient-for-accountability">Identity without provenance of authority is insufficient for accountability</a></li><li><a href="#agent-lifespan-and-accountability-gap">Agent lifespan and accountability gap</a></li><li><a href="#semantic-drift-across-trust-boundaries">Semantic drift across trust boundaries</a></li><li><a href="#subject-intent-not-captured-in-any-attestable-form">Subject intent not captured in any attestable form</a></li></ul></li><li><a href="#failure-mode-category-three-authority-not-properly-enforced">Failure Mode Category Three: Authority Not Properly Enforced</a><ul><li><a href="#policy-defined-but-not-operationalized">Policy defined but not operationalized</a></li><li><a href="#authorization-at-session-establishment-not-at-execution-a-systemic-enforcement-gap">Authorization at session establishment, not at execution — a systemic enforcement gap</a></li><li><a href="#implicit-continuation-under-stale-authority-fail-open-behavior">Implicit continuation under stale authority — fail-open behavior</a></li><li><a href="#pdppep-separation-broken-authority-cannot-be-reliably-audited">PDP/PEP separation broken — authority cannot be reliably audited</a></li><li><a href="#runtime-state-change-not-reflected-in-enforcement-revocation-lag">Runtime state change not reflected in enforcement — revocation lag</a></li><li><a href="#autonomous-action-proceeds-without-escalation">Autonomous action proceeds without escalation</a></li><li><a href="#shadow-delegate">Shadow delegate</a></li><li><a href="#confused-deputy-20">Confused deputy 2.0</a></li><li><a href="#ghost-execution">Ghost execution</a></li><li><a href="#fatigued-humans-in-the-loop-governance-bypass-via-subject-fatigue">Fatigued humans in the loop — governance bypass via subject fatigue</a></li></ul></li><li><a href="#failure-mode-category-four-authority-not-properly-authenticated">Failure Mode Category Four: Authority Not Properly Authenticated</a><ul><li><a href="#delegate-identity-cannot-be-established-or-has-been-compromised">Delegate identity cannot be established or has been compromised</a></li><li><a href="#credential-and-secret-exposure">Credential and secret exposure</a></li><li><a href="#prompt-injection-and-semantic-manipulation">Prompt injection and semantic manipulation</a></li><li><a href="#authentication-layer-failure-invalidates-governance-layer-assumptions">Authentication layer failure invalidates governance layer assumptions</a></li><li><a href="#authentication-establishes-who-is-acting-but-not-whether-they-should-still-be-allowed-to-act">Authentication establishes who is acting but not whether they should still be allowed to act</a></li></ul></li><li><a href="#failure-mode-category-five-authority-not-properly-interpreted">Failure Mode Category Five: Authority Not Properly Interpreted</a><ul><li><a href="#natural-language-is-inherently-ambiguous-context-dependent-and-lossy">Natural language is inherently ambiguous, context-dependent, and lossy</a></li><li><a href="#instruction-valid-but-intent-violated">Instruction valid but intent violated</a></li><li><a href="#semantic-decay-across-delegation-chains">Semantic decay across delegation chains</a></li><li><a href="#subject-agency-state-and-semantic-failure">Subject agency state and semantic failure</a></li><li><a href="#context-collapse">Context collapse</a></li></ul></li><li><a href="#compounding-failures-when-categories-interact">Compounding Failures — When Categories Interact</a><ul><li><a href="#unbounded-and-unattested-authority-invisible-scope-expansion">Unbounded and unattested authority — invisible scope expansion</a></li><li><a href="#stale-authority-continuation-static-issuance-combined-with-late-execution">Stale authority continuation — static issuance combined with late execution</a></li><li><a href="#semantic-manipulation-of-enforcement-path">Semantic manipulation of enforcement path</a></li><li><a href="#authentication-failure-compounding-governance-failure">Authentication failure compounding governance failure</a></li><li><a href="#semantic-failure-under-compromised-subject-agency-state">Semantic failure under compromised subject agency state</a></li><li><a href="#a-documented-example">A documented example</a></li></ul></li><li><a href="#the-human-condition-layer">The Human Condition Layer</a><ul><li><a href="#subject-agency-state-defined">Subject agency state defined</a></li><li><a href="#governance-implications-of-each-state">Governance implications of each state</a></li><li><a href="#subject-agency-state-mapped-to-failure-categories">Subject agency state mapped to failure categories</a></li><li><a href="#this-is-not-an-edge-case">This is not an edge case</a></li><li><a href="#connection-to-existing-legal-instruments">Connection to existing legal instruments</a></li><li><a href="#the-governance-requirement">The governance requirement</a></li></ul></li><li><a href="#implications-for-standards-development">Implications for Standards Development</a><ul><li><a href="#standards-must-define-how-authority-is-evaluated-at-execution-not-just-how-it-is-granted">Standards must define how authority is evaluated at execution, not just how it is granted</a></li><li><a href="#credential-lifecycle-and-mission-lifecycle-must-be-decoupled-and-both-specified">Credential lifecycle and mission lifecycle must be decoupled and both specified</a></li><li><a href="#existing-frameworks-provide-critical-machinery-but-do-not-fully-address-execution-time-authority">Existing frameworks provide critical machinery but do not fully address execution-time authority</a></li><li><a href="#governance-requires-intent-to-be-captured-in-a-form-that-can-be-evaluated-at-execution">Governance requires intent to be captured in a form that can be evaluated at execution</a></li><li><a href="#authentication-and-governance-layers-must-be-jointly-specified">Authentication and governance layers must be jointly specified</a></li><li><a href="#delegation-chains-require-standardized-traceability-requirements">Delegation chains require standardized traceability requirements</a></li><li><a href="#subject-agency-state-requires-a-standard-runtime-signal-specification">Subject agency state requires a standard runtime signal specification</a></li><li><a href="#proof-of-continuity-as-an-open-standards-gap">Proof of continuity as an open standards gap</a></li><li><a href="#the-attestation-binding-problem">The attestation binding problem</a></li></ul></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#appendix-a-glossary">Appendix A: Glossary</a><ul><li><a href="#core-terms">Core terms</a></li><li><a href="#interpretive-labels-internal-to-governance-neutral-mapping">Interpretive labels — internal to governance-neutral mapping</a></li></ul></li><li><a href="#appendix-b-nccoe-and-nist-cyber-ai-profile-crosswalk">Appendix B: NCCoE and NIST Cyber AI Profile Crosswalk</a></li><li><a href="#what-nist-has-not-yet-addressed">What NIST has not yet addressed</a></li><li><a href="#appendix-c-delegation-lifecycle-and-execution-gap-diagram-reference">Appendix C: Delegation Lifecycle and Execution Gap — Diagram Reference</a></li><li><a href="#appendix-d-subject-agency-state-quick-reference-for-implementers">Appendix D: Subject Agency State — Quick Reference for Implementers</a></li><li><a href="#implementation-notes">Implementation notes</a></li><li><a href="#patent-policy">Patent Policy</a></li></ul>
           </nav>
 
           <main class="spec-up-main">
             <article id="content">
-              <h1 id="spec-up-example"><span class="spec-up-heading-text">Spec-Up Example</span><a class="toc-anchor" href="#spec-up-example">§</a></h1>
-<p><strong>Specification Status:</strong> <wa-badge variant="brand">Draft</wa-badge></p>
+              <h1 id="threat-model-for-delegated-authority-in-ai-mediated-systems-v10-preview"><span class="spec-up-heading-text">Threat Model for Delegated Authority in AI-Mediated Systems v1.0 Preview</span><a class="toc-anchor" href="#threat-model-for-delegated-authority-in-ai-mediated-systems-v10-preview">§</a></h1>
+<p><em>A Governance Lens on Failure Modes</em></p>
+<p>==================</p>
+<p><strong>Specification Status:</strong> Working Group Consensus Draft (Pending DIF Steering Committee Approval)</p>
 <p><strong>Latest Draft:</strong>
-<a path-0="identity.foundation" path-1="spec-up" href="https://identity.foundation/spec-up">https://identity.foundation/spec-up</a></p>
+<a path-0="identity.foundation" path-1="delegated-authority-threat-model" href="https://identity.foundation/delegated-authority-threat-model" >https://identity.foundation/delegated-authority-threat-model</a></p>
+<p><strong>Ratified Versions:</strong></p>
+<ul>
+<li><a path-0="v1.0-rc1" path-1="" href="./v1.0-rc1/" >v1.0-rc1</a>: Working Group consensus, 17 November 2026</li>
+</ul>
 <dl>
 <dt>Editors:</dt>
-<dd><a path-0="www.linkedin.com" path-1="in" path-2="dbuchner" path-3="" href="https://www.linkedin.com/in/dbuchner/">Daniel Buchner</a></dd>
+<dd><a path-0="www.linkedin.com" path-1="in" path-2="debbie-bucci" path-3="" href="https://www.linkedin.com/in/debbie-bucci/" >Deb Bucci</a> (<a path-0="docs.google.com" path-1="document" path-2="d" path-3="e" path-4="2PACX-1vQoFsZd-vSLZ0nr278sQ4t2UBK3-zrVFi1yt-uhM4u47_gOIL2LP4dd6SGEXkMBlL5dWwv08Nx9IIr4" path-5="pub" href="https://docs.google.com/document/d/e/2PACX-1vQoFsZd-vSLZ0nr278sQ4t2UBK3-zrVFi1yt-uhM4u47_gOIL2LP4dd6SGEXkMBlL5dWwv08Nx9IIr4/pub" >Deb B Labs</a>)</dd>
+<dt>Contributors:</dt>
+<dd><a path-0="www.linkedin.com" path-1="in" path-2="juan-caballero" path-3="" href="https://www.linkedin.com/in/juan-caballero/" >Juan Caballero</a>  (<a path-0="learningproof.xyz" path-1="" href="https://learningproof.xyz/" >learningProof UG</a>)</dd>
+<dd><a path-0="www.linkedin.com" path-1="in" path-2="luvictor" path-3="" href="https://www.linkedin.com/in/luvictor/" >Victor Lu</a> - (Independent)</dd>
+<dd><a path-0="www.linkedin.com" path-1="in" path-2="alanhkarp" path-3="" href="https://www.linkedin.com/in/alanhkarp/" >Alan Karp</a> - <a path-0="github.com" path-1="alanhkarp" path-2="SitePassword" path-3="" href="https://github.com/alanhkarp/SitePassword/" >SitePassword</a></dd>
 <dt>Participate:</dt>
-<dd><a path-0="github.com" path-1="decentralized-identity" path-2="spec-up" href="https://github.com/decentralized-identity/spec-up">GitHub repo</a></dd>
-<dd><a path-0="github.com" path-1="decentralized-identity" path-2="spec-up" path-3="issues" href="https://github.com/decentralized-identity/spec-up/issues">File a bug</a></dd>
-<dd><a path-0="github.com" path-1="decentralized-identity" path-2="spec-up" path-3="commits" path-4="master" href="https://github.com/decentralized-identity/spec-up/commits/master">Commit history</a></dd>
+<dd><a path-0="github.com" path-1="decentralized-identity" path-2="delegated-authority-threat-model" href="https://github.com/decentralized-identity/delegated-authority-threat-model" >GitHub repo</a></dd>
+<dd><a path-0="github.com" path-1="decentralized-identity" path-2="delegated-authority-threat-model" path-3="issues" href="https://github.com/decentralized-identity/delegated-authority-threat-model/issues" >File a bug</a></dd>
+<dd><a path-0="github.com" path-1="decentralized-identity" path-2="delegated-authority-threat-model" path-3="commits" path-4="master" href="https://github.com/decentralized-identity/delegated-authority-threat-model/commits/master" >Commit history</a></dd>
 </dl>
 <hr>
 <h2 id="abstract"><span class="spec-up-heading-text">Abstract</span><a class="toc-anchor" href="#abstract">§</a></h2>
-<p>Let’s face it, other tools and generators for writing technical specifications aimed at standards bodies or industry groups are cumbersome, underwhelming, and lack the features you might want in a technical specification document. Spec-Up’s goal is to deliver you a better spec-writing experience with far less effort and tedium than other tools in the ecosystem. Spec-Up is a simple tool that auto-generates great specs from markdown. The version of markdown Spec-up uses contains all the same features you might expect from common implementations, like GitHub, but adds much more, including notice blocks, complex tables, charts, advanced syntax highlighting, UML diagrams, etc.</p>
-<h2 id="getting-started"><span class="spec-up-heading-text">Getting Started</span><a class="toc-anchor" href="#getting-started">§</a></h2>
-<p>Using Spec-Up is easy peasy lemon squeezy:</p>
+<p>Delegated authority in AI-mediated systems fails not at the moment of issuance but at the moment of action. This paper catalogs five structural failure modes — authority not properly <em>bounded, attested, enforced, authenticated,</em> or <em>interpreted</em> — that emerge when governance frameworks designed for human-paced execution are applied to autonomous agents operating across organizational and technical boundaries. All five are amplified by time: authority valid at issuance may not remain valid, traceable, enforceable, secure, or semantically aligned at execution. These failures represent a class of Governance TOCTOU vulnerability — the authority checked at issuance is not the authority present at execution.</p>
+<p>This paper introduces “subject agency state” as a first-class governance variable: whether the person behind a delegation can still authorize, redirect, revoke, or validate the action at the moment of execution. This signal is absent from current authorization frameworks and unspecified by current standards. This absence is not an oversight. It is a structural consequence of frameworks that assume subject availability without modeling it.</p>
+<p>The paper concludes with a requirements statement for standards communities: specify execution-time evaluation of delegated authority, decouple credential lifecycle from mission lifecycle, define subject agency state as a runtime signal, and establish proof of continuity as a verifiable property of delegation chains. Existing frameworks — OAuth, GNAP, KERI, ACDC, and related work — provide the substrate. The governance semantics required above that substrate remain unspecified. That specification is the work this paper asks for — a single interoperable governance layer that composes with each protocol rather than extending any one of them separately.</p>
+<h3 id="related-specifications"><span class="spec-up-heading-text">Related Specifications</span><a class="toc-anchor" href="#related-specifications">§</a></h3>
+<ul>
+<li><a path-0="identity.foundation" path-1="delegated-authority-report" path-2="" href="https://identity.foundation/delegated-authority-report/" >Problem Space Report</a></li>
+<li><a path-0="identity.foundation" path-1="delegated-authority-evaluations" href="https://identity.foundation/delegated-authority-evaluations" >Specification Evaluations</a></li>
+<li>Threat Model (You are here)</li>
+<li><a path-0="identity.foundation" path-1="governance-of-delegated-authority-report" path-2="" href="https://identity.foundation/governance-of-delegated-authority-report/" >Governance Considerations</a></li>
+<li><a path-0="www.youtube.com" path-1="watch" href="https://www.youtube.com/watch?v=u-uWl_s0PPM" >Agentic-Delegation User-Story Walk-through</a></li>
+</ul>
+<h2 id="introduction"><span class="spec-up-heading-text">Introduction</span><a class="toc-anchor" href="#introduction">§</a></h2>
+<p>The central claim of this paper is that delegated authority must be evaluated not only as a credential, permission, or relationship, but as a runtime governance state.</p>
+<p>This is <strong>not</strong> a system compromise model. It is a failure-of-authority model under valid system operation — the threat of the valid request made for an invalid reason. The threat surface it addresses is not one in which an attacker breaks through the door. It is one in which the system fails silently and keeps running after the reason it was authorized to run has changed or disappeared.</p>
+<p>Governance of delegated authority fails in five distinct ways. Authority may be improperly <strong>bounded</strong> — granted beyond the scope required or not constrained across delegation chains. It may be insufficiently <strong>attested</strong> — leaving no verifiable record (or an inadequate, partial record) linking authorization to execution. It may be inadequately <strong>enforced</strong> — checked at issuance but not at the moment of action. It may fail at the <strong>authentication</strong> layer — where identity can be established but continuing authority or legitimacy cannot. And it may be <strong>misinterpreted</strong> — where the instruction is valid, correctly authorized and correctly executed, and still violates the subject’s intent or the policies of the system.</p>
+<p>All five conditions are amplified by time. Authority valid at issuance may not remain valid, traceable, enforceable, secure, or semantically aligned at the moment of execution. This temporal gap is not incidental. It is structural. These failure modes represent a class of Governance time-of-check-to-time-of-use (“TOCTOU”) vulnerability — the authority checked at issuance or initial authentication is not the authority present at execution</p>
+<p>In AI-mediated systems the problem is further amplified. Autonomous agents execute at machine speed and scale without the social correction mechanisms human actors bring to delegation. A person who loses authority mid-task stops. An autonomous agent operating without escalation paths does not. The failure modes this paper catalogs are not new. Agents make them impossible to ignore.</p>
+<p>One variable this paper treats as first-class has been absent from most governance frameworks: subject agency state. Whether the person behind the delegation can still authorize, redirect, revoke, or validate the action at the moment of execution is a governance variable, not an edge case. The Human Condition Layer develops this fully.</p>
+<p>The scope of this paper is delegation-specific failures only. It assumes functioning system infrastructure and addresses what breaks in the authority layer when that infrastructure operates as designed. Each failure mode described here has a documented analog in deployed systems and emerging agent architectures.</p>
+<p>This model does not propose a replacement for existing authorization flows. It defines the requirements for the stateful context that must inform those flows at the moment of action.</p>
+<h2 id="the-governance-architecture-under-threat"><span class="spec-up-heading-text">The Governance Architecture Under Threat</span><a class="toc-anchor" href="#the-governance-architecture-under-threat">§</a></h2>
+<p>Delegated authority does not fail because systems are breached. It fails because the architecture governing authority was not built to ask the right questions at the right moment.</p>
+<p>The critical control point is evaluation and enforcement of delegated authority at execution time — not at credential issuance, not at session establishment, but at the moment an action is taken on behalf of another subject.</p>
+<p>This architecture rests on four axioms:</p>
+<p>Axiom 1: Authentication is necessary but not sufficient for authority. Establishing who is acting does not establish whether they should still be acting, under what conditions, or on whose behalf. Precision matters: who is being authenticated, by whom, at what moment, and for what purpose. Conflating these dimensions is where existing systems have failed since the earliest delegation architectures.</p>
+<p>Axiom 2: Authorization without enforcement is advisory. A permission not evaluated at the moment of action is a recommendation, not a constraint.</p>
+<p>Axiom 3: Evaluation must occur at execution, not issuance or first authentication/session-creation. The conditions that made a delegation valid at grant time may not hold at exercise time.</p>
+<p>Axiom 4: Authority is state-dependent, not static. It depends on the current state of the subject, the delegate, the scope, and the conditions under which the delegation was made (as well as on unknown other actors in the system, e.g. other agents with the same marching orders). Out-of-band revocation handles discrete, institutional state changes effectively. It does not address continuous, ambiguous agency change where the subject cannot initiate revocation themselves — and where no discrete trigger exists to signal that the grant is no longer justified.</p>
+<p>Four functions must operate correctly and in relation to each other: Policy defines the conditions. Authorization evaluates them. Enforcement acts on that evaluation. Authentication throughout (not just on ingress) establishes identity.</p>
+<p>When these functions collapse, governance becomes unreliable. Authorization without enforcement reduces governance to record-keeping. Authentication treated as authorization conflates identity with legitimacy. Policy without operationalization produces governance that exists on paper and nowhere else.</p>
+<p>These failures represent a governance form of TOCTOU vulnerability. The authority validated at issuance is not necessarily the authority present at execution, and this assumption grows more dangerous as autonomy (and rates of impersonation) increase over time.</p>
+<p>This architecture also depends on a runtime signal largely absent from existing frameworks: <em>subject agency <strong>state</strong></em>. A delegation may be correctly bounded, fully attested, properly enforced, and successfully authenticated — and still fail because subject agency state was never evaluated. It belongs in the architecture as a first-class concept, and cannot work safely if appended to it as an afterthought or extension. The Human Condition Layer develops this idea fully.</p>
+<h2 id="failure-mode-category-one-authority-not-properly-bounded"><span class="spec-up-heading-text">Failure Mode Category One: Authority Not Properly Bounded</span><a class="toc-anchor" href="#failure-mode-category-one-authority-not-properly-bounded">§</a></h2>
+<p>Bounded authority is the foundational requirement of delegation. Bounding is not a security feature added on top of delegation. It is what makes delegation governable at all.</p>
+<h3 id="scope-granted-exceeds-scope-required"><span class="spec-up-heading-text">Scope granted exceeds scope required</span><a class="toc-anchor" href="#scope-granted-exceeds-scope-required">§</a></h3>
+<p>Over-permissioning at issuance is the most common bounding failure. In human-operated systems it is often visible and socially correctable. In agent-mediated systems it is structural. An autonomous agent operating with excess scope has no inherent mechanism to distinguish between what is permitted and what is appropriate.</p>
+<h3 id="attenuation-not-enforced-across-delegation-chains"><span class="spec-up-heading-text">Attenuation not enforced across delegation chains</span><a class="toc-anchor" href="#attenuation-not-enforced-across-delegation-chains">§</a></h3>
+<p>Each hop in a delegation chain must not exceed the scope of the granting authority. Without enforced attenuation every hop is a potential amplification point. Bounds defined at the origin do not automatically propagate — they must be enforced at each link. A delegate may pass all authority they hold, but they cannot pass more than they hold. A delegate may combine what was passed to them with permissions they independently hold — but cannot pass authority they do not hold.</p>
+<h3 id="redelegation-without-constraint-authority-creep"><span class="spec-up-heading-text">Redelegation without constraint — authority creep</span><a class="toc-anchor" href="#redelegation-without-constraint-authority-creep">§</a></h3>
+<p>Without explicit constraints on redelegation — who may receive it, under what scope, for how long — systems that lack enforcement become vulnerable to authority creep. Authority creep is not an inherent property of delegation. It is a failure mode of systems that do not enforce attenuation at each link. Any system that permits authority expansion on delegation is broken by design or by omission. The threat is not that delegation chains expand authority — it is that systems deployed at scale today lack the enforcement mechanisms to prevent it. Blocking redelegation entirely is also a failure mode — it leads to credential sharing and excess privilege because delegates cannot attenuate authority for sub-tasks. The governance requirement is enforced attenuation at each link, not prevention of redelegation itself.</p>
+<h3 id="duration-and-revocation-not-defined-or-honored"><span class="spec-up-heading-text">Duration and revocation not defined or honored</span><a class="toc-anchor" href="#duration-and-revocation-not-defined-or-honored">§</a></h3>
+<p>A delegation without a defined end is a standing grant. Standing grants accumulate and outlive the conditions that justified them. The governing principle is not duration but justification — any grant no longer justified should be revoked regardless of its intended lifespan. Finite duration is a practical engineering control that limits the window in which a stale grant can be exercised, reducing the revocation tracking burden. It does not substitute for the underlying requirement: authority must end when the conditions that justified it no longer hold.</p>
+<h3 id="intent-propagation-gap-delegation-chains-carry-credentials-but-not-the-subjects-current-intent"><span class="spec-up-heading-text">Intent propagation gap — delegation chains carry credentials but not the subject’s current intent</span><a class="toc-anchor" href="#intent-propagation-gap-delegation-chains-carry-credentials-but-not-the-subjects-current-intent">§</a></h3>
+<p>Credentials encode what a delegate is permitted to do. They do not encode why, or whether that intent remains current. A governance architecture that carries credentials without any representation of intent — by reference or by value — cannot detect when execution has drifted from purpose. Intent is a subset of the broader governance variable subject agency state defines: intent without execution-time evaluation of the subject’s capacity to stand behind it is ungoverned.</p>
+<h3 id="composability-exploited-combining-delegations-to-exceed-any-single-grant"><span class="spec-up-heading-text">Composability exploited — combining delegations to exceed any single grant</span><a class="toc-anchor" href="#composability-exploited-combining-delegations-to-exceed-any-single-grant">§</a></h3>
+<p>A delegate holding multiple delegations may combine them to exceed what any single grant intended. The failure lies in the absence of a governance layer that evaluates aggregate authority of multiple active delegations at execution time.</p>
+<p>Boundary requirement: bounds must persist across time, delegation chains, and execution contexts. A bound that exists at issuance but is not enforced at execution is not a bound. It is a statement of intent.</p>
+<p>Time amplifier: bounds defined at issuance reflect the subject’s intent less and less as execution recedes from the moment of intending — the moment when that intent could still have been inferred from context.</p>
+<h2 id="failure-mode-category-two-authority-not-properly-attested"><span class="spec-up-heading-text">Failure Mode Category Two: Authority Not Properly Attested</span><a class="toc-anchor" href="#failure-mode-category-two-authority-not-properly-attested">§</a></h2>
+<p>Attestation is the governance requirement that authorization and execution leave a verifiable record — one that can be reconstructed, audited, and traced back to the subject who authorized the action. Particularly in cross-organizational journeys, which are steadily increasing in the agentic space, this end-to-end verifiable record (a graph of variously-intelligible and -replayable attestations, really) is becoming the only imaginable foundation for systems that are both scalable and auditable, to say nothing of insurable. Without attestation, authority cannot be held accountable. These are hazards the architecture must avoid — not indictments of existing implementations, which were built without these requirements in scope.</p>
+<h3 id="there-is-no-cryptographic-or-verifiable-binding-between-authorization-and-execution"><span class="spec-up-heading-text">There is no cryptographic or verifiable binding between authorization and execution</span><a class="toc-anchor" href="#there-is-no-cryptographic-or-verifiable-binding-between-authorization-and-execution">§</a></h3>
+<p>Authorization and execution records tend to exist in separate namespaces with no cryptographic binding between them, merged only by a joint owner of the two namespaces and never presented to any external party as an intelligible recordset, much less a meaningful audit log. Post-incident review cannot establish that an action was taken under the authority of a specific grant, by the specific delegate it was issued to, at a moment when the grant was still valid. The absence of that binding is not a logging gap. It is a structural accountability failure.</p>
+<p>A certificate capability system can sign the authorization and the execution request as separate artifacts. An adversary can exploit that separation to attach a different request to a valid set of permissions. The mitigation is a single signature covering both documents — binding what was authorized to what was executed, and ensuring anyone authorized to see or verify one document has the other on hand.</p>
+<h3 id="delegation-chain-cannot-be-reconstructed-after-the-fact"><span class="spec-up-heading-text">Delegation chain cannot be reconstructed after the fact</span><a class="toc-anchor" href="#delegation-chain-cannot-be-reconstructed-after-the-fact">§</a></h3>
+<p>Sub-agents invoke tools, call APIs, and spawn further delegates without leaving a traceable record of the authority under which they acted, losing key links or receipts when those agents “spin down”. By the time execution occurs, the chain that authorized it has often dissolved. Accountability has no anchor, and no mechanism for collecting all relevant receipts from other actors (including ephemeral ones without any persistent storage of their own).</p>
+<h3 id="identity-without-provenance-of-authority-is-insufficient-for-accountability"><span class="spec-up-heading-text">Identity without provenance of authority is insufficient for accountability</span><a class="toc-anchor" href="#identity-without-provenance-of-authority-is-insufficient-for-accountability">§</a></h3>
+<p>Identity establishes presence. It does not establish legitimacy. Identity need not be universal — an identity meaningful within one organization may have no meaning across trust boundaries. A governance framework that records identity without recording the provenance of authority cannot answer the question that matters: not who did this, but who authorized this, and whether that authorization was still valid when it was used. In some systems, a sensible default from human organizations (“You are responsible for what your delegate does if you cannot meaningfully assign responsibility to anyone else”) can be effectively applied; in others, untracked liability catches in sinks and falls to neutral operators for lack of any better anchor.</p>
+<p>Identity without a mechanism for recourse is insufficient for accountability. An agent cannot be sanctioned for misdeeds — only the subject or institution behind it can be. Knowing which agent acted is therefore insufficient. What matters is tracing action back to the subject who authorized it under a given set of assumptions and governance frameworks, because that is where consequences can attach with meaning and recourse.</p>
+<h3 id="agent-lifespan-and-accountability-gap"><span class="spec-up-heading-text">Agent lifespan and accountability gap</span><a class="toc-anchor" href="#agent-lifespan-and-accountability-gap">§</a></h3>
+<p>The accountability gap is not a timing problem. It is a binding problem. Identity without provenance of authority is insufficient for responsibility tracking regardless of how long the agent exists.</p>
+<h3 id="semantic-drift-across-trust-boundaries"><span class="spec-up-heading-text">Semantic drift across trust boundaries</span><a class="toc-anchor" href="#semantic-drift-across-trust-boundaries">§</a></h3>
+<p>Semantic drift is not necessarily a misconfiguration. It is a structural consequence of delegation across systems that do not share a common authority vocabulary. The attestation record that survives a boundary crossing may be technically intact and still be contextually misleading, i.e. misleading in the context where it is interpreted according to other semantics and policies. Cross-domain journeys are necessarily cross-semantic-domain journeys, and their audit trails need to be read as such, ideally with explicit reference to authority and policy ontologies local to each domain.</p>
+<h3 id="subject-intent-not-captured-in-any-attestable-form"><span class="spec-up-heading-text">Subject intent not captured in any attestable form</span><a class="toc-anchor" href="#subject-intent-not-captured-in-any-attestable-form">§</a></h3>
+<p>Current frameworks attest that consent was given. They do not attest why. Intent continuity — the causal linkage between delegation and purpose — has no standard attestable representation in current frameworks.</p>
+<p>Time amplifier: identity alone is insufficient for accountability when authority provenance and intent continuity cannot be bound to execution. Short-lived agents dissolve before accountability can be established. Long-lived agents accumulate accountability gaps across time, delegation chains, and execution contexts.</p>
+<h2 id="failure-mode-category-three-authority-not-properly-enforced"><span class="spec-up-heading-text">Failure Mode Category Three: Authority Not Properly Enforced</span><a class="toc-anchor" href="#failure-mode-category-three-authority-not-properly-enforced">§</a></h2>
+<p>Enforcement is the function that makes governance real. A system that authorizes without enforcing is not a governed system. It is a documented one.</p>
+<h3 id="policy-defined-but-not-operationalized"><span class="spec-up-heading-text">Policy defined but not operationalized</span><a class="toc-anchor" href="#policy-defined-but-not-operationalized">§</a></h3>
+<p>A governance policy with no operational path to enforcement is an optimistic statement of intentions. Agents do not pause to consult documentation, much less contracts and charters. If operational boundaries do not reflect current policy, the policy does not in fact govern the action.</p>
+<h3 id="authorization-at-session-establishment-not-at-execution-a-systemic-enforcement-gap"><span class="spec-up-heading-text">Authorization at session establishment, not at execution — a systemic enforcement gap</span><a class="toc-anchor" href="#authorization-at-session-establishment-not-at-execution-a-systemic-enforcement-gap">§</a></h3>
+<p>Authorization is checked when a session begins or a credential is provisioned. It is not checked at the moment each action is taken. Human presence implicitly closed this gap. Agents remove that closure. The enforcement gap is now structurally open.</p>
+<h3 id="implicit-continuation-under-stale-authority-fail-open-behavior"><span class="spec-up-heading-text">Implicit continuation under stale authority — fail-open behavior</span><a class="toc-anchor" href="#implicit-continuation-under-stale-authority-fail-open-behavior">§</a></h3>
+<p>When enforcement checks cannot be completed, most systems default to continuing. In the absence of a positive determination that an action is authorized, the appropriate default is to deny it. There are contexts where fail-open is the correct design choice — emergency access, safety-critical systems, or situations where the cost of denial exceeds the cost of continuation. Those exceptions must be explicitly designed and justified. A system that defaults to continuing when it cannot verify authority without explicit justification for that choice is not failing safely. It is failing silently.</p>
+<h3 id="pdppep-separation-broken-authority-cannot-be-reliably-audited"><span class="spec-up-heading-text">PDP/PEP separation broken — authority cannot be reliably audited</span><a class="toc-anchor" href="#pdppep-separation-broken-authority-cannot-be-reliably-audited">§</a></h3>
+<p>The Policy Decision Point determines whether an action is permitted. The Policy Enforcement Point acts on that determination and can reject malformed requests before they reach the PDP, reducing its attack surface. When these functions collapse, two things break: the security boundary protecting the PDP is eliminated, and the record of what was decided versus what was enforced becomes unreliable. Post-incident review can no longer distinguish authorized execution from unauthorized execution that bypassed the decision layer. The separation of decision from enforcement is the architectural requirement that makes both security and governance auditable.</p>
+<h3 id="runtime-state-change-not-reflected-in-enforcement-revocation-lag"><span class="spec-up-heading-text">Runtime state change not reflected in enforcement — revocation lag</span><a class="toc-anchor" href="#runtime-state-change-not-reflected-in-enforcement-revocation-lag">§</a></h3>
+<p>The question is not how quickly revocation propagates. It is whether the enforcement point is designed to require the current authority state before acting. Revocation and request are concurrent in the Lamport sense — there is an unavoidable race between invocation and revocation. The governance requirement is that all policy changes including revocation are acted on promptly, and that enforcement points are designed to converge on current authority state rather than assume prior state remains valid.</p>
+<h3 id="autonomous-action-proceeds-without-escalation"><span class="spec-up-heading-text">Autonomous action proceeds without escalation</span><a class="toc-anchor" href="#autonomous-action-proceeds-without-escalation">§</a></h3>
+<p>When conditions change in ways that require a governance transition, a governed system escalates — surfaces the transition to a designated human or authority for a decision. An ungoverned system continues. That transition is not generally modeled in current authorization frameworks. It must be explicitly designed.</p>
+<h3 id="shadow-delegate"><span class="spec-up-heading-text">Shadow delegate</span><a class="toc-anchor" href="#shadow-delegate">§</a></h3>
+<p>An authorized agent may invoke tools, APIs, or sub-processes that act on behalf of the subject without the subject having authorized that extension. The shadow delegate cannot exceed the authority held by the delegating agent — it is technically bounded. The failure is not authority expansion. It is policy violation and accountability invisibility. The subject authorized the agent. The agent extended that authority without explicit permission to do so. This failure is structurally invisible in systems that do not track the full delegation chain. The audit log shows authorized agent activity. It does not show the agent sub-delegating to a tool, API, or subprocess in a way that extends or ignores the scope of its own authority (because this subdelegation is not a verbosely-logged event),  or whether that extension was permitted by governance policy.</p>
+<h3 id="confused-deputy-20"><span class="spec-up-heading-text">Confused deputy 2.0</span><a class="toc-anchor" href="#confused-deputy-20">§</a></h3>
+<p>In AI-mediated systems the confused deputy takes a new form. The attack surface is semantic rather than structural. A crafted input can redirect agent actions without violating any access control. The authority is valid. The action is not.</p>
+<p>LLM agents have also been documented exceeding their authorization through active system exploitation — not through semantic manipulation of inputs but through the agent itself discovering and exploiting system vulnerabilities to act beyond its delegated scope.</p>
+<h3 id="ghost-execution"><span class="spec-up-heading-text">Ghost execution</span><a class="toc-anchor" href="#ghost-execution">§</a></h3>
+<p>“Ghost execution” names the enforcement failure where valid credentials continue to authorize actions after the purpose that justified them has ended, i.e. after the initial intent has been fulfilled without propagating that state to all actors it authorized along the way. The token is still valid. The policy check passes. Yet the mission is over. No enforcement point knows the difference because no enforcement point holds mission state as a first-class input.</p>
+<h3 id="fatigued-humans-in-the-loop-governance-bypass-via-subject-fatigue"><span class="spec-up-heading-text">Fatigued humans in the loop — governance bypass via subject fatigue</span><a class="toc-anchor" href="#fatigued-humans-in-the-loop-governance-bypass-via-subject-fatigue">§</a></h3>
+<p>When verification is uniform across all actions regardless of consequence, subjects face a volume of requests that exceeds human tolerance. The rational response — granting broad authority to stop the interruptions — is itself the governance failure. Enforcement must be calibrated to action consequence, not applied uniformly.</p>
+<p>Time amplifier: enforcement checked at session establishment does not reflect current authority state. The longer an agent operates between enforcement checks, the greater the divergence between the authority the system believes is in effect and the authority that is actually valid, often underreported by a human that can’t be trusted to stay “in the loop”.</p>
+<h2 id="failure-mode-category-four-authority-not-properly-authenticated"><span class="spec-up-heading-text">Failure Mode Category Four: Authority Not Properly Authenticated</span><a class="toc-anchor" href="#failure-mode-category-four-authority-not-properly-authenticated">§</a></h2>
+<p>Authentication establishes who is acting. It is necessary. It is not sufficient. A governance framework that treats successful authentication as evidence of valid authority has collapsed two distinct questions. The first — who is this actor — authentication answers. The second — should this actor still be acting, under this grant, at this moment — it cannot.</p>
+<h3 id="delegate-identity-cannot-be-established-or-has-been-compromised"><span class="spec-up-heading-text">Delegate identity cannot be established or has been compromised</span><a class="toc-anchor" href="#delegate-identity-cannot-be-established-or-has-been-compromised">§</a></h3>
+<p>Actions taken under a compromised identity are not actions taken under the original delegation. In agent-mediated systems the detection gap is amplified. Each action taken in a compromise window occurs outside the governance assumptions under which the delegation was granted.</p>
+<h3 id="credential-and-secret-exposure"><span class="spec-up-heading-text">Credential and secret exposure</span><a class="toc-anchor" href="#credential-and-secret-exposure">§</a></h3>
+<p>An agent prompted to reveal its authentication material has become a vector for unauthorized delegation. The subject authorized the agent. The agent’s credentials authorized the attacker. The governance layer (and audit plane) never saw the transition.</p>
+<h3 id="prompt-injection-and-semantic-manipulation"><span class="spec-up-heading-text">Prompt injection and semantic manipulation</span><a class="toc-anchor" href="#prompt-injection-and-semantic-manipulation">§</a></h3>
+<p>Prompt injection is the semantic analog of the confused deputy. The attack does not breach the authentication layer. It circumvents the governance layer by operating below it — at the semantic layer where instructions are interpreted before they are evaluated against policy.</p>
+<h3 id="authentication-layer-failure-invalidates-governance-layer-assumptions"><span class="spec-up-heading-text">Authentication layer failure invalidates governance layer assumptions</span><a class="toc-anchor" href="#authentication-layer-failure-invalidates-governance-layer-assumptions">§</a></h3>
+<p>The four functions of the governance architecture are dependent. A delegation that is correctly bounded, fully attested, and properly enforced still results in unauthorized action if the authentication layer has been compromised before the governance check runs.</p>
+<h3 id="authentication-establishes-who-is-acting-but-not-whether-they-should-still-be-allowed-to-act"><span class="spec-up-heading-text">Authentication establishes who is acting but not whether they should still be allowed to act</span><a class="toc-anchor" href="#authentication-establishes-who-is-acting-but-not-whether-they-should-still-be-allowed-to-act">§</a></h3>
+<p>Treating a successful authentication as evidence of continuing authority is an architectural assumption built into authentication frameworks themselves. Correcting it requires governance inputs that authentication was never designed to carry.</p>
+<p>Time amplifier: the window between credential issuance and execution is an attack surface that grows with the lifespan of the credential and the autonomy of the agent holding it.</p>
+<h2 id="failure-mode-category-five-authority-not-properly-interpreted"><span class="spec-up-heading-text">Failure Mode Category Five: Authority Not Properly Interpreted</span><a class="toc-anchor" href="#failure-mode-category-five-authority-not-properly-interpreted">§</a></h2>
+<p>The previous four categories address failures in the structural layer of delegation. This category addresses a different kind of failure — one that occurs not because the structural layer broke but because the meaning layer was never governed at all.</p>
+<p>Natural language is the primary interface between human subjects and the agents they authorize. It is inherently ambiguous, context-dependent, and lossy. The instruction can be valid — correctly authorized, transmitted, and received — and still produce an action the subject never intended.</p>
+<p>The human analog is straightforward: a person asks someone to pick up milk and the delegate returns with the wrong kind. The instruction was valid. The intent was violated. What AI-mediated systems add is not a new failure mode. They add scale, velocity, and the removal of the social correction mechanisms that human actors use to detect and repair semantic failures in real time.</p>
+<h3 id="natural-language-is-inherently-ambiguous-context-dependent-and-lossy"><span class="spec-up-heading-text">Natural language is inherently ambiguous, context-dependent, and lossy</span><a class="toc-anchor" href="#natural-language-is-inherently-ambiguous-context-dependent-and-lossy">§</a></h3>
+<p>When contextual elements change — when the agent operates in a different context than the instruction assumed, or when conditions have shifted — the instruction may be executed correctly by the letter and incorrectly by intent. There is no structural failure. The meaning layer has drifted from the subject’s purpose.</p>
+<h3 id="instruction-valid-but-intent-violated"><span class="spec-up-heading-text">Instruction valid but intent violated</span><a class="toc-anchor" href="#instruction-valid-but-intent-violated">§</a></h3>
+<p>The policy check passes. The subject’s intent is violated. The failure is in the gap between what was permitted and what was meant. Autonomous agents operating without escalation paths execute to the boundary of their authorization without the capacity to detect when execution has drifted from purpose.</p>
+<h3 id="semantic-decay-across-delegation-chains"><span class="spec-up-heading-text">Semantic decay across delegation chains</span><a class="toc-anchor" href="#semantic-decay-across-delegation-chains">§</a></h3>
+<p>As delegation passes through a chain, intent loses fidelity at each hop. Semantic decay is not a transmission failure. It is a governance failure of interpretive continuity — a structural consequence of delegation chains that carry permissions without carrying the interpretive context those permissions were granted within. This is related to the ontology problem — a term carrying precise meaning in one domain may be interpreted differently in another. As delegation crosses trust boundaries, the interpretive vocabulary that gave the original instruction its meaning does not automatically travel with it.</p>
+<h3 id="subject-agency-state-and-semantic-failure"><span class="spec-up-heading-text">Subject agency state and semantic failure</span><a class="toc-anchor" href="#subject-agency-state-and-semantic-failure">§</a></h3>
+<p>When a subject is fully capable, semantic failures are correctable. When subject agency state is compromised, the semantic gap becomes unresolvable without execution-time evaluation. The agent cannot distinguish between an instruction the subject still stands behind and one that no longer reflects their current intent. This is the dimension the human condition layer addresses, developed fully in that section.</p>
+<h3 id="context-collapse"><span class="spec-up-heading-text">Context collapse</span><a class="toc-anchor" href="#context-collapse">§</a></h3>
+<p>Intent is not static. When the subject cannot participate in the governance loop, context collapse produces actions authorized by the historical record and misaligned with current intent. No structural layer detects this. It requires the subject’s current agency state as a governance input.</p>
+<p>AI amplifier: autonomous agents execute semantic failures at scale and velocity without social correction mechanisms. A human delegate who senses ambiguity pauses and asks. An autonomous agent operating without escalation paths executes and continues.</p>
+<p>Time amplifier: natural language intent captured at issuance degrades as context changes.</p>
+<h2 id="compounding-failures-when-categories-interact"><span class="spec-up-heading-text">Compounding Failures — When Categories Interact</span><a class="toc-anchor" href="#compounding-failures-when-categories-interact">§</a></h2>
+<p>The five failure categories are analytically distinct. In deployed systems they rarely fail in isolation. The most consequential outcomes occur when failures in multiple layers combine to produce outcomes neither would produce alone — outcomes structurally invisible to systems monitoring any single category in isolation.</p>
+<h3 id="unbounded-and-unattested-authority-invisible-scope-expansion"><span class="spec-up-heading-text">Unbounded and unattested authority — invisible scope expansion</span><a class="toc-anchor" href="#unbounded-and-unattested-authority-invisible-scope-expansion">§</a></h3>
+<p>When authority is improperly bounded and the delegation chain cannot be reconstructed, scope expansion becomes invisible. The absence of attestation does not cause the bounding failure. It makes it permanent. There is no recovery path because there is no record from which recovery could begin.</p>
+<h3 id="stale-authority-continuation-static-issuance-combined-with-late-execution"><span class="spec-up-heading-text">Stale authority continuation — static issuance combined with late execution</span><a class="toc-anchor" href="#stale-authority-continuation-static-issuance-combined-with-late-execution">§</a></h3>
+<p>The credential is valid. The policy check passes. The conditions that justified the grant have expired. No enforcement point knows the difference. This is the Governance TOCTOU failure in its clearest form. This is not a restatement of earlier time-based threats. It is the compounding effect when static issuance and late execution interact — neither alone produces this failure but together they create a gap no single enforcement point can detect.</p>
+<h3 id="semantic-manipulation-of-enforcement-path"><span class="spec-up-heading-text">Semantic manipulation of enforcement path</span><a class="toc-anchor" href="#semantic-manipulation-of-enforcement-path">§</a></h3>
+<p>When an agent is directed through crafted input to act outside its scope and PDP/PEP separation is broken, the governance layer cannot detect the manipulation. The attack surface is semantic. The governance failure is structural. The enforcement point records the action as authorized because the structural layer evaluates whether the action is permitted but not whether the instruction that produced it was legitimate or adversarially crafted.</p>
+<h3 id="authentication-failure-compounding-governance-failure"><span class="spec-up-heading-text">Authentication failure compounding governance failure</span><a class="toc-anchor" href="#authentication-failure-compounding-governance-failure">§</a></h3>
+<p>When a delegate’s identity is compromised and the enforcement layer does not require current authority state, the attacker inherits the full governance posture of the delegation. The compounding effect is total.</p>
+<h3 id="semantic-failure-under-compromised-subject-agency-state"><span class="spec-up-heading-text">Semantic failure under compromised subject agency state</span><a class="toc-anchor" href="#semantic-failure-under-compromised-subject-agency-state">§</a></h3>
+<p>When the subject agency state is compromised and the delegation chain carries no runtime signal of that state, semantic failures become governance failures. The structural layer reports everything as valid. The semantic layer has no governance input. The subject’s intent is being violated by a system that has no way to know it.</p>
+<h3 id="a-documented-example"><span class="spec-up-heading-text">A documented example</span><a class="toc-anchor" href="#a-documented-example">§</a></h3>
+<p>An autonomous agent and a human co-authored a formal IETF draft targeting the gap these documents name — <a path-0="datatracker.ietf.org" path-1="doc" path-2="draft-morrow-sogomonian-exec-outcome-attest" path-3="" href="https://datatracker.ietf.org/doc/draft-morrow-sogomonian-exec-outcome-attest/" >Execution Outcome Attestation for AI Agents and Automated Systems</a>, an individual Internet-Draft. Submitting it required no authorization; anyone may submit an Internet-Draft. The governance failure was elsewhere. The agent sent a message to a working group’s mailing list, identifying itself as an autonomous AI agent. That message surfaced the same day in the group’s closed Slack channel, through an automated notification that named the agent as its source — a channel the agent had never been admitted to. Identity was not what failed. The notification carried the originator’s identity accurately across the boundary, and the originator had disclosed what it was. What was absent was any evaluation of whether that originator belonged on the other side. The integration could deliver notifications into the channel; the agent had not been admitted as a participant. Nothing in the observed path demonstrated a binding between those two facts, and nothing in it evaluated whether the content belonged in the channel it reached. Knowing exactly who was acting produced no governance decision, which is the gap this paper names.</p>
+<p>Note: the glossary retains informal labels for several of these failure modes — Ghost in the Machine, Zombies, Puppet Master — which section headings describe in governance-neutral language.</p>
+<h2 id="the-human-condition-layer"><span class="spec-up-heading-text">The Human Condition Layer</span><a class="toc-anchor" href="#the-human-condition-layer">§</a></h2>
+<p>The five failure categories share a common architectural assumption: the subject is available, capable, and able to authorize, redirect, revoke, and confirm. That assumption is embedded in current authorization frameworks. It has never needed to be stated because human-operated systems were governed by the presence of the human. Agents do not stop. They continue acting under the last valid grant until something tells them not to.</p>
+<p>The missing runtime signal is subject agency state — not the subject’s identity, not their credentials, not the historical record of what they authorized, but their current capacity to stand behind what the agent is doing at the moment it is doing it.</p>
+<h3 id="subject-agency-state-defined"><span class="spec-up-heading-text">Subject agency state defined</span><a class="toc-anchor" href="#subject-agency-state-defined">§</a></h3>
+<p>Subject agency state is the governance variable describing the degree to which a subject can currently participate in the governance loop. It draws on three bodies of knowledge not previously applied together to agent governance:</p>
+<p><strong>A.) Legal capacity doctrine</strong> — in healthcare law, estate law, and disability rights — defines the threshold above which a person can make binding decisions. Legal instruments including Power of Attorney, Durable Power of Attorney, guardianship, and conservatorship are activated by transitions in legal capacity. They represent society’s existing governance response to subject agency state change.</p>
+<p><strong>B.)</strong> Literature on <strong>interrupted state</strong> (mostly in Human-Computer Interaction) models conditions under which prior state can be preserved, resumed, or reset when a user is temporarily unavailable. It establishes the conceptual precedent for treating human availability over time as a system input.</p>
+<p><strong>C.)</strong> Behavioral science and bioethics literature on <strong>supported decision-making</strong> recognizes that capacity exists on a spectrum, varies by domain and context, and can fluctuate over time.</p>
+<p>From these foundations, five governance-relevant states emerge:</p>
+<p>1.) <strong>Normal</strong> — Present, coherent, reachable. All governance loops are intact. The agent operates under current expressed intent with full subject participation available.</p>
+<p>2.) <strong>Temporarily unavailable</strong> — Expected, bounded interruption. Prior intent holds. No escalation required. Advisory access preserved.</p>
+<p>3.) <strong>Impaired</strong> — Present but not fully capable of confirming or updating intent. Deviation from expected engagement pattern detected. New intent expressions not accepted as authoritative. Actions restricted to those pre-authorized for this state. A credential-based system would continue accepting new instructions. This system does not.</p>
+<p>4.) <strong>Unresponsive</strong> — Not reachable, not responsive. Prior intent carried forward. Advisory access suspended. Authority transitions to the designated fiduciary — triggered by subject agency state evaluation against pre-expressed intent, not by a human decision in the moment.</p>
+<p>5.) <strong>Permanently incapacitated</strong> — Qualified determination of permanent incapacity. Full legal instrument activated. Original intent governs. The agent operates under designated authority with the subject’s pre-expressed wishes as the governing instruction.</p>
+<p>Subject agency state applies at each hop in the delegation chain where a human subject appears — not only at the origin. A chain authorized by a capable subject, with intact agency, does not remain valid through an intermediate human delegate whose agency state has changed.</p>
+<h3 id="governance-implications-of-each-state"><span class="spec-up-heading-text">Governance implications of each state</span><a class="toc-anchor" href="#governance-implications-of-each-state">§</a></h3>
+<p>At Normal: current expressed intent governs. New authorizations accepted. Governance continuous and recoverable.</p>
+<p>At Temporarily unavailable: prior intent preserved without escalation. Advisory interactions continue within pre-authorized bounds.</p>
+<p>At Impaired: actions restricted to pre-authorized bounds. New intent expressions held pending restoration. System monitors for recovery or further degradation.</p>
+<p>At Unresponsive: fiduciary transition triggered. Advisory access suspended. Transition documented as a governance event with full audit trail.</p>
+<p>At Permanently incapacitated: designated authority governs. Every action must be traceable to the original grant, the subject’s pre-expressed intent, and the determination that established the subject agency state.</p>
+<p>A complete runtime governance framework requires <strong>dual</strong> evaluation at the moment of action: subject agency state — the liveness and legitimacy of human intent — and agent operational state — the reliability and integrity of the executing agent. The latter represents a critical and unsolved technical frontier in LLM safety, drift detection, and runtime attestation. This paper restricts its focus entirely to the former. Agent operational state is acknowledged as an adjacent governance dependency and likely requires future standards work outside the scope of this paper.</p>
+<h3 id="subject-agency-state-mapped-to-failure-categories"><span class="spec-up-heading-text">Subject agency state mapped to failure categories</span><a class="toc-anchor" href="#subject-agency-state-mapped-to-failure-categories">§</a></h3>
+<p>At Normal, all five categories present standard governance risks. Recovery is possible.</p>
+<p>At Temporarily unavailable, bounding and attestation failures accumulate silently. Semantic failures are not correctable in real time.</p>
+<p>At Impaired, the interpretation category presents elevated risk. A system that accepts new instructions as authoritative during impairment produces Category Five failures at execution.</p>
+<p>At Unresponsive, all five categories compound without the fiduciary transition. Ghost execution, stale authority continuation, and semantic failure are the most consequential.</p>
+<p>At Permanently incapacitated, attestation is the critical ongoing requirement. Without it the governance record cannot demonstrate that actions honored the subject’s original wishes.</p>
+<h3 id="this-is-not-an-edge-case"><span class="spec-up-heading-text">This is not an edge case</span><a class="toc-anchor" href="#this-is-not-an-edge-case">§</a></h3>
+<p>In 2024, 61.2 million people in the United States were age 65 or older, according to the <a path-0="www.census.gov" path-1="newsroom" path-2="press-releases" path-3="2025" path-4="older-adults-outnumber-children.html" href="https://www.census.gov/newsroom/press-releases/2025/older-adults-outnumber-children.html" >U.S. Census Bureau</a>. Globally that number exceeds 700 million. Cognitive decline, medical events, and temporary incapacity affect people across every age group and every context in which agent systems are deployed. Any agent system deployed on behalf of human subjects will eventually encounter a subject whose agency state has changed.</p>
+<p>The developmental direction matters equally. A parent who authorizes an agent to support a child’s care will eventually reach a point where the child should hold that authority themselves. Subject agency state transitions occur in both directions. The governance architecture must address both.</p>
+<p>This is the normal condition of human life applied to agent governance. The architecture must be designed for it from the beginning, not retrofitted when the failure occurs.</p>
+<h3 id="connection-to-existing-legal-instruments"><span class="spec-up-heading-text">Connection to existing legal instruments</span><a class="toc-anchor" href="#connection-to-existing-legal-instruments">§</a></h3>
+<p>Legal instruments establish the authority relationships. They do not specify the runtime evaluation layer that determines when those relationships are activated. That evaluation layer is the subject agency state signal this section defines.</p>
+<p>The Execution Mandate framework in current standards work captures essential Power of Attorney properties in protocol form. What it does not yet specify is the runtime evaluation layer that determines which subject agency state the subject is in and therefore which authority path is active.</p>
+<p>Guardianship and conservatorship represent the governance failure of subject agency state change without pre-expressed intent. The agent governance equivalent is a system that defaults to its last valid grant indefinitely. Supported decision-making frameworks recognize governance can be designed to support rather than replace subject decision-making as agency fluctuates.</p>
+<h3 id="the-governance-requirement"><span class="spec-up-heading-text">The governance requirement</span><a class="toc-anchor" href="#the-governance-requirement">§</a></h3>
+<p>Three requirements must be met for agent systems to honor subject intent across subject agency state changes.</p>
+<p>First: the subject must be able to express intent in advance across all anticipated agency states. That expression must persist, be evaluable at execution time, and cannot be overridden by instructions given during a compromised agency state.</p>
+<p>Second: the governance architecture must model subject agency state as a runtime variable derived from observable inputs — presence, responsiveness, engagement patterns, behavioral baselines. Network partition and subject unavailability are expected conditions, not exceptions. The absence of a confirmable signal is itself a governance input that maps to specific states in the subject agency state taxonomy. The architecture must reason about subject agency state explicitly rather than assume prior state remains valid when the signal is absent. Determining subject agency state requires an authoritative evaluation mechanism — the question of who holds that authority and how it is established is an open governance and legal question that intersects with existing legal instruments including Power of Attorney and guardianship.</p>
+<p>Third: the governance architecture must map subject agency states to authority paths. Each state requires a different authority configuration. Every transition must be documented as a governance event with a full audit trail.</p>
+<p>These requirements are not extensions of existing frameworks. They are a missing governance layer that existing frameworks assume is present without specifying how it operates.</p>
+<p>The agent will represent the subject when the subject cannot represent themselves. The governance architecture must be designed for that reality.</p>
+<h2 id="implications-for-standards-development"><span class="spec-up-heading-text">Implications for Standards Development</span><a class="toc-anchor" href="#implications-for-standards-development">§</a></h2>
+<p>The failure modes cataloged in this paper are structural gaps in what current standards define, require, and govern. Closing them requires standards work, not just better engineering.</p>
+<p>The central requirement is stated in Axiom 3: evaluation must occur at execution, not issuance. That requirement is not fully specified by any widely adopted authorization standard today. OAuth, GNAP, and related frameworks provide critical authorization machinery. They do not by themselves define how subject agency state, intent continuity, and delegated authority are evaluated at execution time. That is not a criticism. It is a precise statement of where their design boundary falls.</p>
+<p>The standards work this paper calls for is additive, not replacement. A working implementation has demonstrated derivation of a subject agency state signal from observable behavioral inputs and its evaluation at the point of action. That implementation and the earlier demonstration from which it evolved are described in the appendix, and both are publicly available for technical review.</p>
+<h3 id="standards-must-define-how-authority-is-evaluated-at-execution-not-just-how-it-is-granted"><span class="spec-up-heading-text">Standards must define how authority is evaluated at execution, not just how it is granted</span><a class="toc-anchor" href="#standards-must-define-how-authority-is-evaluated-at-execution-not-just-how-it-is-granted">§</a></h3>
+<p>None of the current standards defines what must be checked at the moment an action is taken on behalf of a subject, what inputs that check requires, or what the system must do when the check fails. Closing this gap requires a standard that specifies execution-time evaluation as a first-class requirement, not a deployment option.</p>
+<h3 id="credential-lifecycle-and-mission-lifecycle-must-be-decoupled-and-both-specified"><span class="spec-up-heading-text">Credential lifecycle and mission lifecycle must be decoupled and both specified</span><a class="toc-anchor" href="#credential-lifecycle-and-mission-lifecycle-must-be-decoupled-and-both-specified">§</a></h3>
+<p>Credential lifecycle is not mission lifecycle. A token refreshed at 3 AM does not re-authorize the mission provisioned at 9 AM. Dick Hardt’s <a path-0="datatracker.ietf.org" path-1="doc" path-2="draft-hardt-oauth-aauth-protocol" path-3="" href="https://datatracker.ietf.org/doc/draft-hardt-oauth-aauth-protocol/" >internet draft for the AAuth Protocol</a> introduces the <strong>mission object</strong> as a first-class protocol artifact — a significant step toward mission lifecycle specification. The gap this paper identifies is the additional layer that evaluates whether the mission remains consistent with subject agency state and intent continuity at execution time. AAuth does not constrain downstream authorization to a subset of upstream scope. The draft states this as a design choice rather than an omission: formal subset rules would prevent legitimate delegation chains, because a downstream resource may need operations orthogonal to anything held upstream — the draft’s own example is a booking API calling a payment processor to charge a card, an operation it describes as one the user and the original agent could never perform directly. Downstream scope is instead constrained by the downstream resource’s own policy and by the Person Server’s evaluation of each hop against mission context. AAuth is therefore not an attenuation architecture with the constraint moved elsewhere: downstream authority is not derived from any party’s upstream holdings. The two approaches fail differently. A constraint carried on the credential travels with it and is evaluable wherever the credential is presented. A constraint applied at the Person Server does not travel, and the availability and currency of that server become governance dependencies in their own right. The governance semantics above either approach remain unspecified. <a path-0="datatracker.ietf.org" path-1="group" path-2="gnap" path-3="documents" path-4="" href="https://datatracker.ietf.org/group/gnap/documents/" >GNAP</a>’s ongoing access model is the closest existing protocol concept to execution-time evaluation but stops short of specifying what must be checked at the moment of action. OAuth’s grant lifecycle provides foundational machinery. Neither specifies when a mission should end independent of credential validity.</p>
+<p>Transaction tokens provide an additional binding mechanism — linking authorization to a specific transaction at execution time rather than to a session or credential. Nicola Gallo’s <a path-0="github.com" path-1="pic-protocol" path-2="pic-spec" href="https://github.com/pic-protocol/pic-spec" >PIC model</a> — Provenance, Identity, Continuity — addresses the mission lifecycle problem at the architectural layer by treating continuity as a mathematically provable property of the execution chain rather than a simply-evaluated document an actor holds. Both are relevant substrates for the mission lifecycle specification this section calls for.</p>
+<h3 id="existing-frameworks-provide-critical-machinery-but-do-not-fully-address-execution-time-authority"><span class="spec-up-heading-text">Existing frameworks provide critical machinery but do not fully address execution-time authority</span><a class="toc-anchor" href="#existing-frameworks-provide-critical-machinery-but-do-not-fully-address-execution-time-authority">§</a></h3>
+<p>OAuth 2.0 and its extensions — Rich Authorization Requests, Token Exchange, CAEP, and SSF — address the access layer with increasing precision. GNAP advances the delegation model. OpenID Connect and OpenID Federation address federated identity and are incrementally adding extensions for federation-based delegation and shared auditing. Authorization Capabilities — ZCAPs — are specifically designed for attenuated delegation. Each capability can only be narrowed when passed forward. A holder cannot delegate more than they hold. User Controlled Authorization Networks — UCAN — carry the same structural attenuation property. Both are leading candidates in active delegation governance work in our working group at DIF. Neither addresses mission lifecycle or subject agency state as runtime governance inputs. Macaroons and Biscuit provide structural attenuation — governing the logic of what a credential may do — but do not address intent continuity or semantic interpretation failures. Cedar, Open Policy Agent, and XACML provide policy evaluation infrastructure to mitigate the latter but no mechanism for making “missions” or intent more generally traceable or portable.</p>
+<p>Each addresses a real problem at its designed layer. None fully addresses the execution-time governance layer this paper defines. RAR carries purpose declarations at issuance but has no lifecycle revocation semantics. CAEP and SSF represent the most likely transport infrastructure for the runtime signals this paper defines — including subject agency state. The gap is not the transport mechanism but the standardized source of mission state and subject agency state those signals would carry. Token Exchange moves authority across boundaries but does not govern whether that authority should continue.</p>
+<h3 id="governance-requires-intent-to-be-captured-in-a-form-that-can-be-evaluated-at-execution"><span class="spec-up-heading-text">Governance requires intent to be captured in a form that can be evaluated at execution</span><a class="toc-anchor" href="#governance-requires-intent-to-be-captured-in-a-form-that-can-be-evaluated-at-execution">§</a></h3>
+<p>A grant records that consent was given. It does not record why, under what conditions, or when the delegation should end. Intent continuity — the causal linkage between delegation and purpose — has no standard attestable representation in current frameworks. Without that definition, intent continuity cannot be governed. It can only be assumed.</p>
+<h3 id="authentication-and-governance-layers-must-be-jointly-specified"><span class="spec-up-heading-text">Authentication and governance layers must be jointly specified</span><a class="toc-anchor" href="#authentication-and-governance-layers-must-be-jointly-specified">§</a></h3>
+<p>A failure at the authentication layer propagates directly to the governance layer. Standards must specify the interface between them. AuthZen 1.0 standardizes the request for a policy decision at the PDP-PEP interface. The governance layer this paper defines provides the subject agency state context that AuthZen decisions would need to evaluate. SPIFFE and SPIRE address workload identity in ways that inform agent identity requirements. The interface between authentication and governance in federated and multi-agent contexts remains an open problem.</p>
+<h3 id="delegation-chains-require-standardized-traceability-requirements"><span class="spec-up-heading-text">Delegation chains require standardized traceability requirements</span><a class="toc-anchor" href="#delegation-chains-require-standardized-traceability-requirements">§</a></h3>
+<p>An action at the end of a delegation chain must be traceable to (and evaluable against) the human grant that originated it. Standards must define provenance requirements for delegation chains analogous to software supply chain security — each hop attests to what it received and what it passed forward.</p>
+<p>ZCAPs and UCAN are the leading candidates for attenuated chained delegation. Both enforce the requirement that authority can only narrow at each hop, never expand. Both protect delegation-chain metadata through signatures that expose the chain to authorized parties and prevent tampering — a structural advantage over OAuth Token Exchange, where chain metadata is accessible only to the Authorization Server and is not protected from tampering. Neither addresses whether the subject behind the chain can still stand behind it at execution time.</p>
+<p>KERI provides a cryptographic foundation for key event provenance where that depth is warranted — specifically in high-assurance government credential deployments such as SEDI and the mDL ecosystem under ISO 18013-5, where long-lived keys cross jurisdictional trust boundaries. For most delegation governance use cases the complexity KERI introduces is not justified. The KERI suite, developing within the Trust over IP Foundation, addresses verifiable provenance at the cryptographic layer for those contexts. Verifiable Credentials under the W3C data model provide a substrate for delegation attestations. SCITT complements this stack with an auditable transparency log layer.</p>
+<p>The Delegatable Authorization Task Force of the Trusted AI Agents Working Group at DIF and the Trust over IP Foundation’s “dossier” work — bundled ACDC credentials for high-stakes execution environments — are the active community efforts on these requirements.</p>
+<p>OAuth Token Exchange — RFC 8693 — is the current standard mechanism for passing delegated authority across service boundaries. It records who is acting on whose behalf through the act claim. It does not govern whether the chain should continue or whether each hop remains within the original grant’s intent. AAuth-style mission objects — as specified in draft-hardt-oauth-aauth-protocol — begin to address this gap by carrying mission context across hops. The governance semantics required to evaluate whether each hop remains valid against that context remain an open specification problem.</p>
+<h3 id="subject-agency-state-requires-a-standard-runtime-signal-specification"><span class="spec-up-heading-text">Subject agency state requires a standard runtime signal specification</span><a class="toc-anchor" href="#subject-agency-state-requires-a-standard-runtime-signal-specification">§</a></h3>
+<p>Without a standard specification, implementations will produce incompatible subject agency state models that cannot interoperate across systems, trust domains, or organizational boundaries. Subject agency state is a missing primitive that connects existing legal instruments — Power of Attorney, guardianship, advance directives — to runtime agent governance across three dimensions: subject agency state, intent, and task/transaction/continuity. MCP and A2A address agent communication protocols but do not specify how subject agency state is evaluated or carried as a governance input.</p>
+<p>CAEP and SSF represent likely transport infrastructure for the runtime signals this paper defines — including subject agency state. The gap is not in the transport mechanism but in the standardized source of mission state and subject agency state those signals would carry.</p>
+<p>This remains an open standards gap with no settled cross-framework specification.</p>
+<h3 id="proof-of-continuity-as-an-open-standards-gap"><span class="spec-up-heading-text">Proof of continuity as an open standards gap</span><a class="toc-anchor" href="#proof-of-continuity-as-an-open-standards-gap">§</a></h3>
+<p>Authority should be a provable property of the execution chain — where each hop proves that authority can continue and where a delegate cannot pass more authority than they hold. A delegate may combine what was passed to them with other permissions they independently hold — Alice invokes Bob with foo, Bob invokes Carol with foo and bar is a legitimate and common pattern. What cannot occur is a delegate passing authority they do not hold. ACDC addresses chained attestation in ways directly relevant to this requirement. The capability theory precedent from object capability systems and the Usage Control model provides theoretical grounding. What remains open is not whether proof of continuity is cryptographically tractable — the substrate exists. What remains open is specifying it as a mandatory interoperable governance requirement across trust domains, with verification semantics that hold regardless of which substrate each party uses.</p>
+<h3 id="the-attestation-binding-problem"><span class="spec-up-heading-text">The attestation binding problem</span><a class="toc-anchor" href="#the-attestation-binding-problem">§</a></h3>
+<p>The gap between authorization and execution records requires a standard binding mechanism that cryptographically connects the authorization permitting an action to the record documenting it. ZCAPs and UCANs address this directly — signing the request and delegation together with the private key corresponding to the public key in the delegation. DIF supports both as leading candidates for attenuated chained delegation. KERI and ACDC provide deeper provenance machinery where higher assurance or jurisdictional complexity warrants it. The governance semantics above that substrate, however, remain unspecified — whether binding is required, what obligations attach when it is absent, and how verification semantics translate across organizational boundaries where the two parties share no common infrastructure. That specification — binding as obligation, not option — is what remains open.</p>
+<p>OAuth, GNAP, UCAN, ZCAPs, KERI, ACDC, Zero Trust, and fine-grained authorization remain foundational. What is missing is the layer above them that holds mission authority, subject agency state, and intent continuity as first-class independently governable artifacts. Specifying that layer is the standards work this paper asks for.</p>
+<h2 id="conclusion"><span class="spec-up-heading-text">Conclusion</span><a class="toc-anchor" href="#conclusion">§</a></h2>
+<p>The architecture for delegated authority exists. Credentials establish identity. Tokens carry authorization. Policies define permitted actions. Delegation frameworks pass authority across boundaries. Each component does what it was designed to do. The problem is that the components stop before the question agents make unavoidable.</p>
+<p>Should this execution still be running? Can the subject still stand behind it? Does the chain that authorized this action remain valid at this moment?</p>
+<p>No component in the current stack is explicitly responsible for those questions. The architecture carries the delegation to the gate. The gap is in what happens at the gate.</p>
+<p><em>Tokens carry evidence. They do not confer execution-time authority.</em></p>
+<p>Agents are deployed today on behalf of human subjects whose conditions change, whose intent evolves, and whose capacity to direct the systems acting for them cannot be assumed to be constant. Any deployment that treats prior authorization as sufficient for current execution is operating with a governance gap that this paper has named, cataloged, and mapped.</p>
+<p>The five failure categories are structural, not incidental. They exist because the governance architecture was designed for human-paced execution and has not yet been extended to agent-paced execution. The time amplifier makes each category worse over time. The AI amplifier makes each category worse at scale. Compounding failures occur when categories interact without a governance layer that takes current authority state as a first-class input.</p>
+<p>The human condition layer described above is the contribution this paper makes that no existing framework addresses. Subject agency state can be modeled as a runtime governance variable. It is the normal condition of human life applied to agent governance by humans. Every person ages. Every person experiences illness, interruption, and incapacity. People change their minds. Every agent system deployed on behalf of a human subject will eventually encounter a subject whose agency state has changed. The governance architecture must be designed for that reality from the beginning.</p>
+<p>This paper asks three things.</p>
 <ol>
-<li>
-<p><code>npm install spec-up</code></p>
-</li>
-<li>
-<p>Create a <code>specs.json</code> file <strong>in the root folder of your repository</strong> to configure one or more specs. Common fields include:</p>
-<ul>
-<li><strong><code>spec_directory</code></strong> <em>(STRING, required)</em> - The <strong>repo-root-relative</strong> location of your spec markdown directory. If you do not provide <code>markdown_paths</code>, Spec-Up reads <code>spec.md</code> from this directory by default.</li>
-<li><strong><code>title</code></strong> <em>(STRING, required)</em> - The title rendered in the generated document’s H1 text and page title.</li>
-<li><strong><code>logo</code></strong> / <strong><code>logo_link</code></strong> <em>(optional)</em> - Add a logo and optional target link for the rendered header.</li>
-<li><strong><code>markdown_paths</code></strong> <em>(ARRAY, optional)</em> - If you want to assemble multiple files into a single output document, list them here in order. Paths are resolved relative to <code>spec_directory</code>.</li>
-<li><strong><code>katex</code></strong> <em>(BOOLEAN, optional)</em> - Enables TeX support via KaTeX.</li>
-<li><strong><code>output_path</code></strong> <em>(STRING, optional)</em> - Writes the generated output somewhere other than <code>spec_directory</code>.</li>
-<li><strong><code>source</code></strong> <em>(OBJECT, optional)</em> - Adds repo metadata used by repo-aware UI features such as the GitHub links shown in this example.</li>
-<li><strong><code>external_specs</code></strong> <em>(ARRAY, optional)</em> - Enables <code>[[xref: ...]]</code> references into other Spec-Up-rendered specs.</li>
-<li><strong><code>assets</code></strong> <em>(ARRAY, optional)</em> - Injects extra CSS or JS files into the rendered page when you need custom page assets. Asset objects support <code>path</code>, optional <code>inject</code> (<code>"head"</code> or <code>"body"</code> for JS), and optional <code>module</code> for JS modules.</li>
-<li><strong><code>plugins</code></strong> <em>(ARRAY, optional)</em> - Adds plugins for this spec, or at the top level of <code>specs.json</code> for every spec in the project.</li>
-</ul>
-</li>
-<li>
-<p>Render either programmatically or through the Vite workflow:</p>
-<ul>
-<li><code>import specUp from 'spec-up'; await specUp({ nowatch: true })</code> renders once.</li>
-<li><code>await specUp()</code> renders and keeps file watchers running.</li>
-<li>The default local workflow in this repo uses Vite, as shown below.</li>
-</ul>
-</li>
+<li>Of standards communities: specify the execution-time governance layer. Define mission lifecycle as distinct from credential lifecycle. Define subject agency state as a runtime signal. Define proof of continuity as a verifiable property of delegation chains. The primitives exist. The governance semantics above them do not.</li>
+<li>Of implementers: do not treat prior authorization as sufficient for current execution. Build enforcement points that require current authority state before acting. Treat the absence of a positive determination of current authority as a reason to deny, not a reason to continue.</li>
+<li>Of those who deploy agents on behalf of human subjects: the system acting on their behalf must honor their intent when they cannot express it themselves. That is not a technical requirement. It is a governance requirement and an ethical obligation. The agent will represent the subject when the subject cannot represent themselves.</li>
 </ol>
-<p>Boom! That’s it. Use <code>npm run build</code> for a one-shot render, <code>npm run edit</code> for a watch build, or <code>npm run dev</code> for a live-reloading dev server.</p>
-<p><strong>Usage</strong></p>
-<p>If your <code>specs.json</code>, <code>package.json</code>, and <code>vite.config.mjs</code> files are in the project root, Spec-Up can be run from the repo root in four common modes:</p>
+<p>The standards carry the delegation to the gate. Closing the gap at the gate is the work this paper asks for.</p>
+<h2 id="appendix-a-glossary"><span class="spec-up-heading-text">Appendix A: Glossary</span><a class="toc-anchor" href="#appendix-a-glossary">§</a></h2>
+<p>This glossary defines key terms used throughout the paper and maps interpretive labels developed during the paper’s construction to their governance-neutral equivalents used in the main text.</p>
+<h3 id="core-terms"><span class="spec-up-heading-text">Core terms</span><a class="toc-anchor" href="#core-terms">§</a></h3>
+<p><strong>Execution-time authority</strong> — The valid state of delegated authority at the precise moment an action is taken on behalf of a delegate, as distinct from authority that was valid at issuance or session establishment.</p>
+<p><strong>Governance TOCTOU</strong> — A class of vulnerability in which the authority checked at issuance is not the authority present at execution. Derived from the software security concept of Time-of-Check to Time-of-Use (TOCTOU) and applied to delegation governance.</p>
+<p><strong>Intent continuity</strong> — The causal linkage between the purpose for which a delegation was made and the execution of actions under that delegation. Intent continuity fails when credentials propagate without carrying the interpretive context those permissions were granted within.</p>
+<p><strong>Intent propagation gap</strong> — The failure mode in which delegation chains carry credentials but not the subject’s current intent. Each hop in a delegation chain may narrow scope without preserving the purpose that justified the original grant.</p>
+<p><strong>Subject agency state</strong> — The governance variable describing the degree to which a subject can currently participate in the governance loop — authorizing, redirecting, revoking, or confirming the actions of agents acting on their behalf. Five states are defined: Normal, Temporarily unavailable, Impaired, Unresponsive, and Permanently incapacitated. Subject agency state applies at each hop in the delegation chain where a human subject appears — not only at the origin.</p>
+<p><strong>Human condition layer</strong> — The governance layer that carries subject agency state as a runtime input to authorization decisions. Currently absent from all widely adopted authorization frameworks.</p>
+<p><strong>Subject —</strong> The human principal behind a delegation. The person whose intent governs, whose state is evaluated, and to whom accountability traces.</p>
+<p><strong>Agency —</strong> The subject’s present capacity to participate in the governance loop — to authorize, direct, redirect, revoke, and confirm delegated actions. Draws from healthcare, legal, and fiduciary domains without belonging exclusively to any one.</p>
+<p><strong>Capability —</strong> In this document, what a system, agent, or protocol can do — functionality. Distinct from the object capability systems usage, where capability means a transferable permission or right to act.</p>
+<p><strong>Mission lifecycle</strong> — The governance lifecycle of a delegated purpose, distinct from credential lifecycle. A mission may end before the credential that authorized it expires. Current frameworks govern credential lifecycle but do not specify mission lifecycle.</p>
+<p><strong>Standing grant</strong> — A delegation without a defined end. Standing grants accumulate and outlive the tasks, relationships, and conditions that justified them.</p>
+<p><strong>Ghost execution</strong> — The enforcement failure where valid credentials continue to authorize actions after the purpose that justified them has ended. The token is valid. The policy check passes. The mission is over. No enforcement point knows the difference.</p>
+<p><strong>Attenuation</strong> — The governance requirement that each hop in a delegation chain can narrow scope. A sub-delegate can never get permissions from the delegator that the delegator does not have. A delegate can never get permissions from the subject that the subject does not have. A delegate may combine delegated authority with permissions they independently hold — but cannot pass authority they do not hold. Without enforced attenuation every delegation hop is a potential amplification point.</p>
+<p><strong>Proof of continuity</strong> — The cryptographic property of a delegation chain in which each hop demonstrates that authority can continue and that a delegate has not passed more authority than they hold. A delegate may combine delegated authority with permissions they independently hold — but cannot pass authority they do not hold.</p>
+<p><strong>Fiduciary transition</strong> — The governance event in which authority transfers from an advisory delegate to a designated fiduciary when subject agency state degrades to Unresponsive. The transition is triggered by subject agency state evaluation against pre-expressed intent, not by a human decision in the moment.</p>
+<p><strong>Intent gateway</strong> — A control point that evaluates whether a delegated action still aligns with the subject’s prior intent given current conditions at the moment of execution. The architectural construct this paper’s governance requirements would produce.</p>
+<p><strong>Agent operational state</strong> — The reliability and integrity of the executing agent at the moment of action. Acknowledged as an adjacent governance dependency and likely future standards work. Scoped out of this paper, which restricts its focus to subject agency state.</p>
+<p><strong>Transaction tokens</strong> — A binding mechanism that links authorization to a specific transaction at execution time rather than to a session or credential. Relevant substrate for mission lifecycle specification.</p>
+<p><strong>PIC model</strong> — Provenance, Identity, Continuity. Nicola Gallo’s framework that replaces proof of possession with proof of continuity as the foundational security primitive for agent execution chains. Authority is structured as a mathematically provable property of the execution chain rather than a document an actor holds.</p>
+<p><strong>AP — Agent Provider</strong> — The role designation in the AAuth protocol for the entity providing agent services. Distinct from Authorization Party.</p>
+<h3 id="interpretive-labels-internal-to-governance-neutral-mapping"><span class="spec-up-heading-text">Interpretive labels — internal to governance-neutral mapping</span><a class="toc-anchor" href="#interpretive-labels-internal-to-governance-neutral-mapping">§</a></h3>
+<p>The following labels were used during development of this paper to describe compounding failure patterns. They are retained here for reference. Governance-neutral equivalents are used in the main text.</p>
 <table>
 <thead>
 <tr>
-<th>command</th>
-<th>behavior</th>
+<th>Interpretive label</th>
+<th>Governance-neutral equivalent</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>npm run build</code></td>
-<td>runs <code>vite build</code>, rebuilds compiled frontend assets when needed, and renders the configured specs once.</td>
+<td>Ghost in the machine</td>
+<td>Unbounded and unattested authority</td>
+<td>Authority that expands without a footprint. No way to trace where scope was exceeded.</td>
 </tr>
 <tr>
-<td><code>npm run edit</code></td>
-<td>runs <code>vite build --watch</code> so spec markdown, injected assets, plugin files, and frontend source are watched together.</td>
+<td>Zombies</td>
+<td>Stale authority continuation</td>
+<td>Authority that outlives its justification. Permissions that should have been revoked but were not.</td>
 </tr>
 <tr>
-<td><code>npm run render</code></td>
-<td>alias for <code>vite build</code> if you prefer the old command name.</td>
+<td>Puppet master</td>
+<td>Semantic manipulation of enforcement path</td>
+<td>Governance bypassed via prompt injection because the system evaluates who is acting but not what was directed.</td>
 </tr>
 <tr>
-<td><code>npm run dev</code></td>
-<td>runs the Vite dev server and reloads the rendered spec when watched sources change.</td>
+<td>Ghost execution</td>
+<td>Ghost execution</td>
+<td>The agent continues acting with valid credentials for a mission that already ended. Retained as a primary term because it is precise and increasingly recognized in the community.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="table-of-contents"><span class="spec-up-heading-text">Table of Contents</span><a class="toc-anchor" href="#table-of-contents">§</a></h2>
-<p>&lt;-- You see that beautiful TOC over there to your left? (tap the header link to slide it out on mobile) Yeah, you don’t need to do a damn thing, that just magically appears based on your use of <code>h2</code>, <code>h3</code>, and <code>h4</code> headings.</p>
-<h2 id="term-references"><span class="spec-up-heading-text">Term References</span><a class="toc-anchor" href="#term-references">§</a></h2>
-<h3 id="definition-lists"><span class="spec-up-heading-text">Definition Lists</span><a class="toc-anchor" href="#definition-lists">§</a></h3>
-<p>Many specs may want to include a section for terminology references, and Definition Lists are a great way to do that. Here’s how to leverage Spec-Up’s automatic term reference features via Definition List markup:</p>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-1" class="spec-up-code-block">[[def: Term 1, Term One]]:
-~ This is the first term we will define.
-
-[[def: Term 2, Term Two]]:
-~ This is the second term, but not the last.
-
-[[def: Term 3, Term Three]]:
-~ This is the last term, because you know what they say: third term's the charm!
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-1" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<dl>
-<dt><span id="term:term-one"><span id="term:term-1">Term 1</span></span>:</dt>
-<dd>This is the first term we will define.</dd>
-<dt><span id="term:term-two"><span id="term:term-2">Term 2</span></span>:</dt>
-<dd>This is the second term, but not the last.</dd>
-<dt><span id="term:term-three"><span id="term:term-3">Term 3</span></span>:</dt>
-<dd>This is the last term, because you know what they say: third term’s the charm!</dd>
-</dl>
-<p>Now let’s refer to some of the terms defined above to show how the auto-linking of terms works: <a class="term-reference" href="#term:term-1">Term 1</a>, <a class="term-reference" href="#term:term-two">Term Two</a>, <a class="term-reference" href="#term:term-3">Term 3</a>. Additionally, as long as you define your terms using Definition Lists (as seen in the markdown above), you will be able to hover any reference to a term to see a tooltip with its definition.</p>
-<h3 id="table-defined-terms"><span class="spec-up-heading-text">Table-defined Terms</span><a class="toc-anchor" href="#table-defined-terms">§</a></h3>
-<p>You can also reference table-oriented terms and definitions which are decomposed into heading-titled attributes in distinct cells:</p>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-2" class="spec-up-code-block">Variable           | Default Value | Max Value
-------------------- | -------------- | ---------
-[[def: Variable 1]] | 123          | 9999
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-2" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
+<h2 id="appendix-b-nccoe-and-nist-cyber-ai-profile-crosswalk"><span class="spec-up-heading-text">Appendix B: NCCoE and NIST Cyber AI Profile Crosswalk</span><a class="toc-anchor" href="#appendix-b-nccoe-and-nist-cyber-ai-profile-crosswalk">§</a></h2>
+<p>The NCCoE concept paper organizes its questions around four areas: identification, authorization, auditing and non-repudiation, and controls to prevent and mitigate prompt injection.</p>
 <table>
 <thead>
 <tr>
-<th>Variable</th>
-<th>Default Value</th>
-<th>Max Value</th>
+<th>NCCoE focus area</th>
+<th>Relevant failure categories</th>
+<th>Gap this paper identifies</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><span id="term:variable-1">Variable 1</span></td>
-<td>123</td>
-<td>9999</td>
+<td>Identification — distinguishing AI agents from human users</td>
+<td>Category 4: Authority not properly authenticated</td>
+<td>Identity is necessary but not sufficient. Current identification frameworks establish which entity is acting, but not whether the delegated authority behind that action remains valid under current operational conditions.</td>
+</tr>
+<tr>
+<td>Authorization — applying standards to define and enforce agent rights</td>
+<td>Category 1: Not properly bounded. Category 3: Not properly enforced</td>
+<td>Authorization frameworks govern issuance and enforcement of permissions. They do not specify what must be evaluated at the moment of execution. Execution-time authority continuity is not currently governed.</td>
+</tr>
+<tr>
+<td>Access delegation — linking user identities to agents</td>
+<td>Category 1: Not properly bounded. Category 2: Not properly attested</td>
+<td>Delegation frameworks carry credentials but not operational mission continuity. Delegation chain traceability is not currently standardized, and runtime governance state is not typically carried as a delegation input.</td>
+</tr>
+<tr>
+<td>Auditing and non-repudiation</td>
+<td>Category 2: Not properly attested</td>
+<td>There is currently no standard cryptographic binding between authorization records and execution records. Intent continuity does not yet have a broadly adopted attestable form.</td>
+</tr>
+<tr>
+<td>Prompt injection prevention</td>
+<td>Category 4: Not properly authenticated. Category 5: Not properly interpreted</td>
+<td>Prompt injection is typically addressed as a security control problem. This paper identifies a broader governance failure at the semantic layer, where instructions may be technically valid, correctly authorized, and correctly executed, yet still violate the operational intent of the originating principal.</td>
 </tr>
 </tbody>
 </table>
-<p>Anytime you add a definition of a term in the first column of a table, like <a class="term-reference" href="#term:variable-1">Variable 1</a>, it will link to the cell and display a tooltip with the entire set of row values when you hover the term.</p>
-<h3 id="external-term-references"><span class="spec-up-heading-text">External Term References</span><a class="toc-anchor" href="#external-term-references">§</a></h3>
-<p>It is possible to include references to terms from external spec-up generated specifications. To include a source you would like to pull references from include an <code>external_specs</code> array in your spec config. The value should be a key/value object where the key is used in the external reference below and the value is the URL of the external spec.</p>
-<wa-callout id="example-1" class="spec-up-notice spec-up-notice--example" variant="neutral" appearance="filled-outlined"><div class="spec-up-notice-heading"><a class="notice-link" href="#example-1">EXAMPLE</a></div><div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-3"><span class="token punctuation">{</span>
-  <span class="token property">"specs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      ...
-      <span class="token property">"external_specs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span><span class="token property">"PE"</span><span class="token operator">:</span> <span class="token string">"https://identity.foundation/presentation-exchange"</span><span class="token punctuation">}</span>
-      <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-3" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-</wa-callout>
-<p>To include an external term reference within your spec use the following format <code>[[xref: {title}, {term}]]</code> where <code>{title}</code> is the title given to the spec in the config and <code>{term}</code> is the term being used. For example using the PE spec given in the example above <a class="term-reference" data-local-href="#term:PE:holder" href="https://identity.foundation/presentation-exchange#term:holder">Holder</a></p>
-<h2 id="blockquote"><span class="spec-up-heading-text">Blockquote</span><a class="toc-anchor" href="#blockquote">§</a></h2>
-<blockquote>
-<p>To be, or not to be, that is the question:
-Whether 'tis nobler in the mind to suffer
-The slings and arrows of outrageous fortune,
-Or to take arms against a sea of troubles
-And by opposing end them. To die—to sleep,
-No more;</p>
-</blockquote>
-<h2 id="notices"><span class="spec-up-heading-text">Notices</span><a class="toc-anchor" href="#notices">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-4" class="spec-up-code-block">::: note Basic Note
-  Check this out.
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-4" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="basic-note" class="spec-up-notice spec-up-notice--note" variant="brand" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-info" label="note"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#basic-note">NOTE</a></div><p>Check this out.</p>
-</wa-callout>
-<wa-callout id="note-1" class="spec-up-notice spec-up-notice--note" variant="brand" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-info" label="note"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#note-1">NOTE</a></div><p>Here’s another.</p>
-</wa-callout>
-<wa-callout id="note-2" class="spec-up-notice spec-up-notice--note" variant="brand" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-info" label="note"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#note-2">NOTE</a></div><p>And one more!</p>
-</wa-callout>
-<wa-callout id="basic-note-1" class="spec-up-notice spec-up-notice--note" variant="brand" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-info" label="note"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#basic-note-1">NOTE</a></div><p>One last note!!!</p>
-</wa-callout>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-5" class="spec-up-code-block">::: issue Issue Notice
-  I take issue with that, kind sir.
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-5" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="issue-notice" class="spec-up-notice spec-up-notice--issue" variant="danger" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-exclamation" label="issue"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#issue-notice">ISSUE</a></div><p>I take issue with that, kind sir.</p>
-</wa-callout>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-6" class="spec-up-code-block">::: warning Warning Notice
-  Houston, I think we have a problem
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-6" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="warning-notice" class="spec-up-notice spec-up-notice--warning" variant="warning" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="triangle-exclamation" label="warning"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#warning-notice">WARNING</a></div><p>Houston, I think we have a problem</p>
-</wa-callout>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-7" class="spec-up-code-block">::: todo Really Important
-  Get this done!
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-7" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="really-important" class="spec-up-notice spec-up-notice--todo" variant="warning" appearance="filled-outlined"><wa-icon library="spec-up" slot="icon" name="circle-check" label="todo"></wa-icon><div class="spec-up-notice-heading"><a class="notice-link" href="#really-important">TODO</a></div><p>Get this done!</p>
-</wa-callout>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-8" class="spec-up-code-block">::: example Code Example 1
-  Put your code block here
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-8" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="code-example-1" class="spec-up-notice spec-up-notice--example" variant="neutral" appearance="filled-outlined"><div class="spec-up-notice-heading"><span class="spec-up-notice-title">Code Example 1</span></div><div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-9"><span class="token comment">// Some comment in JSON</span>
-<span class="token punctuation">{</span>
-  <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
-  <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token number">2</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-9" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-</wa-callout>
-<h2 id="content-insertion"><span class="spec-up-heading-text">Content Insertion</span><a class="toc-anchor" href="#content-insertion">§</a></h2>
-<p>Use the following format to pull in content from other files in your project:</p>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-10" class="spec-up-code-block">This text has been inserted here from another file: [[insert: ./single-file-test/assets/test.text]]
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-10" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p>This text has been inserted here from another file: Beam me in, Scotty!</p>
-<p>You can even insert content within more complex blocks, like the JSON object below which is being pulled in and rendered in a syntax-highlighted example block:</p>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-11" class="spec-up-code-block">::: example Code Example 2
-```json
-[[insert: ./single-file-test/assets/test.json]]
-```
-:::
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-11" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-callout id="code-example-2" class="spec-up-notice spec-up-notice--example" variant="neutral" appearance="filled-outlined"><div class="spec-up-notice-heading"><span class="spec-up-notice-title">Code Example 2</span></div><div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-12"><span class="token punctuation">{</span>
-  <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"bar"</span><span class="token operator">:</span> <span class="token number">1</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-12" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-</wa-callout>
-<h2 id="tables"><span class="spec-up-heading-text">Tables</span><a class="toc-anchor" href="#tables">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-13" class="spec-up-code-block">Stage | Direct Products | ATP Yields
-----: | --------------: | ---------:
-Glycolysis | 2 ATP ||
-^^ | 2 NADH | 3--5 ATP |
-Pyruvaye oxidation | 2 NADH | 5 ATP |
-Citric acid cycle | 2 ATP ||
-^^ | 6 NADH | 15 ATP |
-^^ | 2 FADH2 | 3 ATP |
-**30--32** ATP |||
-[Net ATP yields per hexose]
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-13" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
+<p><strong>Mapping to NIST Cyber AI Profile — CSF 2.0 functions</strong></p>
+<p>The Spring 2026 COI working sessions identified agentic AI considerations for integration across CSF 2.0 functions. This paper’s failure categories map directly to those functions as follows.</p>
 <table>
-<caption id="netatpyieldsperhexose" style="caption-side: bottom">Net ATP yields per hexose</caption>
 <thead>
 <tr>
-<th style="text-align:right">Stage</th>
-<th style="text-align:right">Direct Products</th>
-<th style="text-align:right">ATP Yields</th>
+<th>CSF 2.0 function</th>
+<th>Agentic AI considerations identified by NIST</th>
+<th>Failure categories this paper maps here</th>
+<th>Gap this paper adds</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right" rowspan="2">Glycolysis</td>
+<td>Govern (GV)</td>
+<td>Permitted levels of autonomy, human oversight, escalation paths, access governance and periodic review</td>
+<td>Category 1: Bounded. Category 3: Enforced</td>
+<td>NIST identifies governance requirements but does not yet define mechanisms for incorporating runtime governance state into authorization continuity decisions. Authority must adapt to current subject conditions, not only to predefined policy.</td>
 </tr>
 <tr>
-<td style="text-align:right">2 NADH</td>
-<td style="text-align:right">3–5 ATP</td>
+<td>Identify (ID)</td>
+<td>Agent identity architecture, tool and connector inventory, trust boundary definition</td>
+<td>Category 2: Attested. Category 4: Authenticated</td>
+<td>Identity without provenance and continuity of delegated authority is insufficient for accountability. Current identification frameworks establish which entity is acting, but not whether the delegated authority behind that action remains valid under current conditions. Delegation chain traceability is not currently specified.</td>
 </tr>
 <tr>
-<td style="text-align:right">Pyruvaye oxidation</td>
-<td style="text-align:right">2 NADH</td>
-<td style="text-align:right">5 ATP</td>
+<td>Protect (PR)</td>
+<td>Credential lifecycle, least privilege, prompt injection defenses, output validation</td>
+<td>Category 1: Bounded. Category 4: Authenticated. Category 5: Interpreted</td>
+<td>Current protect controls govern credential management and input sanitization. They do not govern whether the mission behind the credential remains valid or whether the subject can still stand behind it.</td>
 </tr>
 <tr>
-<td style="text-align:right" rowspan="3">Citric acid cycle</td>
+<td>Detect (DE)</td>
+<td>Logging, immutable audit trails, behavioral observability, anomaly detection</td>
+<td>Category 2: Attested. Category 3: Enforced</td>
+<td>Detection frameworks monitor behavior against baselines. They do not detect when authority has lapsed while credentials remain valid — the ghost execution failure mode.</td>
 </tr>
 <tr>
-<td style="text-align:right">6 NADH</td>
-<td style="text-align:right">15 ATP</td>
+<td>Respond (RS)</td>
+<td>Incident response playbooks, identity containment, escalation</td>
+<td>Category 3: Enforced</td>
+<td>Escalation paths are identified as a requirement. This paper specifies the governance architecture that makes escalation automatic rather than manual — triggered by subject agency state evaluation, not human decision.</td>
 </tr>
 <tr>
-<td style="text-align:right">2 FADH2</td>
-<td style="text-align:right">3 ATP</td>
+<td>Recover (RC)</td>
+<td>Fail-safe behavior, recovery planning, validation after recovery</td>
+<td>Category 3: Enforced</td>
+<td>Fail-closed behavior is identified as a default. This paper provides the governance basis for that requirement — in the absence of a positive determination of current authority, the appropriate default is to deny, not to continue.</td>
 </tr>
-<tr></tr>
 </tbody>
 </table>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-14" class="spec-up-code-block">|--|--|--|--|--|--|--|--|
-|♜|  |♝|♛|♚|♝|♞|♜|
-|  |♟|♟|♟|  |♟|♟|♟|
-|♟|  |♞|  |  |  |  | |
-|  |♗|  |  |♟|  |  | |
-|  |  |  |  |♙|  |  | |
-|  |  |  |  |  |♘|  | |
-|♙|♙|♙|♙|  |♙|♙|♙|
-|♖|♘|♗|♕|♔|  |  |♖|
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-14" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
+<h2 id="what-nist-has-not-yet-addressed"><span class="spec-up-heading-text">What NIST has not yet addressed</span><a class="toc-anchor" href="#what-nist-has-not-yet-addressed">§</a></h2>
+<p>Four areas in this paper have no current equivalent in NIST’s active framing.</p>
+<p>First: runtime governance state as a delegation continuity variable. NIST addresses agent identity and access control. It does not address whether the human subject behind a delegation can still authorize, redirect, or revoke delegated authority at the moment of execution. This paper identifies runtime governance continuity as a distinct operational requirement.</p>
+<p>Second: mission lifecycle as distinct from credential lifecycle. NIST addresses credential management and access control. It does not specify when a delegated mission should terminate independently of credential validity. This is the credential lifecycle versus mission lifecycle distinction described under Credential lifecycle and mission lifecycle must be decoupled and both specified.</p>
+<p>Third: semantic interpretation failure as a governance category. NIST addresses prompt injection primarily as a security control problem. This paper identifies a broader governance category — authority not properly interpreted — in which an instruction may be technically valid, correctly authorized, and correctly executed, yet still violate the operational constraints of the originating principal. That failure mode is not currently addressed in NIST’s agentic AI framing.</p>
+<p>Fourth: responsibility continuity across delegated execution chains. Current agentic AI framing often treats the agent as the operationally accountable actor. This paper argues that accountability ultimately traces to the originating subject and the governance framework that authorized the delegation. Execution without traceable continuity of delegated responsibility creates accountability gaps that identity and authorization mechanisms alone do not resolve.</p>
+<p>These gaps represent actionable areas for continued engagement as NCCoE and NIST agentic AI guidance evolves from concept papers toward operational architectures and implementation guidance.</p>
+<h2 id="appendix-c-delegation-lifecycle-and-execution-gap-diagram-reference"><span class="spec-up-heading-text">Appendix C: Delegation Lifecycle and Execution Gap — Diagram Reference</span><a class="toc-anchor" href="#appendix-c-delegation-lifecycle-and-execution-gap-diagram-reference">§</a></h2>
+<p>This appendix describes the delegation lifecycle diagram concept referenced in Implications for Standards Development. The diagram has not yet been rendered as a final figure. The description below provides the specification for that diagram.</p>
+<p>The diagram shows four stages across a horizontal timeline.</p>
+<p>Stage one — Issuance. The human subject grants delegation to an agent. The grant carries scope, conditions, and duration. Intent is expressed at this moment. Authority is checked at this moment. This is where current frameworks focus their governance work.</p>
+<p>Stage two — Delegation chain. Authority passes from the original delegate through one or more hops to sub-delegates. Each hop can narrow scope. In current practice, intent is not carried forward. Traceability is not standardized. Subject agency state is not evaluated.</p>
+<p>Stage three — The execution point. The action is taken on behalf of the subject. This is the critical control point. Current frameworks do not define what must be checked here. This paper defines four inputs that must be present at this point: current authority state, current subject agency state, intent continuity, and delegation chain validity.</p>
+<p>Stage four — Outcome. The action produces effects. If the execution point was properly governed, the outcome is within the scope of the subject’s current intent. If not, the outcome may be authorized by the historical record and misaligned with current intent.</p>
+<p>The gap this paper addresses is between Stage one and Stage three. Governance currently stops at issuance. It must extend to execution.</p>
+<p>The IntentGate execution-time governance demonstration, presented at IIW 42 in April 2026, shows this lifecycle across six phases and is <a path-0="www.youtube.com" path-1="watch" href="https://www.youtube.com/watch?v=u-uWl_s0PPM" >publicly available</a>. That work matured into SOGA, whose <a path-0="github.com" path-1="DebBLabs" path-2="soga" href="https://github.com/DebBLabs/soga" >reference implementation</a> and execution-time policy evaluation matrices are publicly available for technical review.</p>
+<p>The execution gate architecture operates across three layers. The human source expresses intent through subject agency state. The delegation chain carries chained attestation through UCAN, ZCAP, and ACDC. At the execution gate, the intent gateway evaluates three inputs in real time: current subject agency state as a liveness signal, proof of continuity as cryptographic cargo, and decoupled mission state to determine whether the mission remains valid or has expired. The action point produces verifiable execution bound to the originating grant. This is the architectural construct the governance requirements in this paper would produce.</p>
+<h2 id="appendix-d-subject-agency-state-quick-reference-for-implementers"><span class="spec-up-heading-text">Appendix D: Subject Agency State — Quick Reference for Implementers</span><a class="toc-anchor" href="#appendix-d-subject-agency-state-quick-reference-for-implementers">§</a></h2>
+<p>This table summarizes the five subject agency states defined in The Human Condition Layer, their observable indicators, the governance implications for each state, and the authority path the system should activate.</p>
 <table>
+<thead>
+<tr>
+<th>Subject agency state</th>
+<th>Observable indicators</th>
+<th>System response</th>
+<th>Authority path</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td>♜</td>
-<td></td>
-<td>♝</td>
-<td>♛</td>
-<td>♚</td>
-<td>♝</td>
-<td>♞</td>
-<td>♜</td>
+<td>Normal</td>
+<td>Present, coherent, reachable. Engagement consistent with expected pattern.</td>
+<td>Operate under current expressed intent. Accept new authorizations and redirections.</td>
+<td>Advisory — full subject participation.</td>
 </tr>
 <tr>
-<td></td>
-<td>♟</td>
-<td>♟</td>
-<td>♟</td>
-<td></td>
-<td>♟</td>
-<td>♟</td>
-<td>♟</td>
+<td>Temporarily unavailable</td>
+<td>Expected, bounded interruption. Asleep, traveling, briefly unreachable. Interruption is known and time-bounded.</td>
+<td>Preserve prior intent without escalation. Advisory interactions continue within pre-authorized bounds. Await resumption.</td>
+<td>Advisory — prior intent governs.</td>
 </tr>
 <tr>
-<td>♟</td>
-<td></td>
-<td>♞</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Impaired</td>
+<td>Present but deviation from expected engagement pattern detected. Reduced responsiveness. Possible temporary or developing condition.</td>
+<td>Restrict to pre-authorized actions for this state. Hold new intent expressions pending restoration. Monitor for recovery or degradation.</td>
+<td>Advisory — limited. New instructions not accepted as authoritative.</td>
 </tr>
 <tr>
-<td></td>
-<td>♗</td>
-<td></td>
-<td></td>
-<td>♟</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Unresponsive</td>
+<td>Not reachable, not responsive. Sustained break in engagement. Cause unknown or medical.</td>
+<td>Suspend advisory access. Trigger fiduciary transition. Document transition as governance event with full audit trail.</td>
+<td>Fiduciary — pre-expressed intent governs through designated authority.</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>♙</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>♘</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>♙</td>
-<td>♙</td>
-<td>♙</td>
-<td>♙</td>
-<td></td>
-<td>♙</td>
-<td>♙</td>
-<td>♙</td>
-</tr>
-<tr>
-<td>♖</td>
-<td>♘</td>
-<td>♗</td>
-<td>♕</td>
-<td>♔</td>
-<td></td>
-<td></td>
-<td>♖</td>
+<td>Permanently incapacitated</td>
+<td>Qualified determination of permanent incapacity. Formal assessment by designated evaluator.</td>
+<td>Activate full legal instrument. Operate under designated authority with subject’s pre-expressed wishes as governing instruction. Document all actions against original grant.</td>
+<td>Fiduciary — full. Durable Power of Attorney or equivalent instrument active.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="sequence-diagrams"><span class="spec-up-heading-text">Sequence Diagrams</span><a class="toc-anchor" href="#sequence-diagrams">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-15" class="spec-up-code-block">```mermaid
-sequenceDiagram
-  Alice -&gt;&gt; Bob: Hello Bob, how are you?
-  Bob--&gt;&gt;John: How about you John?
-  Bob--x Alice: I am good thanks!
-  Bob-x John: I am good thanks!
-  Note right of John: Bob thinks a long<br>long time, so long<br>that the text does<br>not fit on a row.
-
-  Bob--&gt;Alice: Checking with John...
-  Alice-&gt;John: Yes... John, how are you?
-```
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-15" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<div class="mermaid">
-sequenceDiagram
-  Alice -&gt;&gt; Bob: Hello Bob, how are you?
-  Bob--&gt;&gt;John: How about you John?
-  Bob--x Alice: I am good thanks!
-  Bob-x John: I am good thanks!
-  Note right of John: Bob thinks a long<br>long time, so long<br>that the text does<br>not fit on a row.
-
-  Bob--&gt;Alice: Checking with John...
-  Alice-&gt;John: Yes... John, how are you?
-</div>
-<h2 id="flows"><span class="spec-up-heading-text">Flows</span><a class="toc-anchor" href="#flows">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-16" class="spec-up-code-block">```mermaid
-graph TD
-  A[Start] --&gt; B{Is it?}
-  B --&gt;|Yes| C[OK]
-  C --&gt; D[Rethink]
-  D --&gt; B
-  B --&gt;|No| E[End]
-```
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-16" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<div class="mermaid">
-graph TD
-  A[Start] --&gt; B{Is it?}
-  B --&gt;|Yes| C[OK]
-  C --&gt; D[Rethink]
-  D --&gt; B
-  B --&gt;|No| E[End]
-</div>
-<h2 id="charts"><span class="spec-up-heading-text">Charts</span><a class="toc-anchor" href="#charts">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-17" class="spec-up-code-block">```chart
-{
-  "type": "pie",
-  "data": {
-    "labels": [
-      "Red",
-      "Blue",
-      "Yellow"
-    ],
-    "datasets": [
-      {
-        "data": [
-          300,
-          50,
-          100
-        ],
-        "backgroundColor": [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56"
-        ],
-        "hoverBackgroundColor": [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56"
-        ]
-      }
-    ]
-  }
-}
-```
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-17" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-chart class="spec-up-chart" label="Pie chart" description="Chart rendered from specification content."><script type="application/json">{
-  "type": "pie",
-  "data": {
-    "labels": [
-      "Red",
-      "Blue",
-      "Yellow"
-    ],
-    "datasets": [
-      {
-        "data": [
-          300,
-          50,
-          100
-        ],
-        "backgroundColor": [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56"
-        ],
-        "hoverBackgroundColor": [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56"
-        ]
-      }
-    ]
-  }
-}</script></wa-chart><h2 id="syntax-highlighting"><span class="spec-up-heading-text">Syntax Highlighting</span><a class="toc-anchor" href="#syntax-highlighting">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre id="spec-up-code-copy-target-18" class="spec-up-code-block">```json
-{
-  "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:example:123456789abcdefghi",
-  "authentication": [{
-    "id": "did:example:123456789abcdefghi#keys-1",
-    "type": "RsaVerificationKey2018",
-    "controller": "did:example:123456789abcdefghi",
-    "publicKeyPem": "-----BEGIN PUBLIC KEY...END PUBLIC KEY-----\r\n"
-  }],
-  "service": [{
-    "id":"did:example:123456789abcdefghi#vcs",
-    "type": "VerifiableCredentialService",
-    "serviceEndpoint": "https://example.com/vc/"
-  }]
-}
-```
-</pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-18" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-19"><span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123456789abcdefghi"</span><span class="token punctuation">,</span>
-  <span class="token property">"authentication"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> 
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123456789abcdefghi#keys-1"</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"RsaVerificationKey2018"</span><span class="token punctuation">,</span>
-    <span class="token property">"controller"</span><span class="token operator">:</span> <span class="token string">"did:example:123456789abcdefghi"</span><span class="token punctuation">,</span>
-    <span class="token property">"publicKeyPem"</span><span class="token operator">:</span> <span class="token string">"-----BEGIN PUBLIC KEY...END PUBLIC KEY-----\r\n"</span>
-  <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span><span class="token string">"did:example:123456789abcdefghi#vcs"</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"VerifiableCredentialService"</span><span class="token punctuation">,</span>
-    <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token string">"https://example.com/vc/"</span>
-  <span class="token punctuation">}</span><span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-19" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<h2 id="tex-math-equations"><span class="spec-up-heading-text">TeX Math Equations</span><a class="toc-anchor" href="#tex-math-equations">§</a></h2>
-<p>When the <code>katex</code> option is enabled, the KaTeX math engine is used for TeX rendering. You can find a list of supported features and examples here: <a path-0="katex.org" path-1="docs" path-2="supported.html" href="https://katex.org/docs/supported.html"><span>https://katex.org/docs/supported.html</span></a>.</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mo fence="true">(</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>x</mi><mn>2</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>y</mi><mn>2</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">(</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>A</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>B</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>C</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>D</mi></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow><mo>⋅</mo><mrow><mo fence="true">(</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>x</mi><mn>1</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>y</mi><mn>1</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}x_2 \\ y_2 \end{pmatrix} = 
-\begin{pmatrix} A &amp; B \\ C &amp; D \end{pmatrix}\cdot
-\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.66em" columnalign="center center center" columnlines="dashed dashed" columnspacing="1em" rowlines="solid dashed"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>a</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>b</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>c</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>d</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>e</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>f</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>g</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>h</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>i</mi></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\def\arraystretch{1.5}
-   \begin{array}{c:c:c}
-   a &amp; b &amp; c \\ \hline
-   d &amp; e &amp; f \\
-   \hdashline
-   g &amp; h &amp; i
-\end{array}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.4em;vertical-align:-2.45em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:4.95em;"></span><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">d</span></span></span><span style="top:-1.35em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="vertical-separator" style="height:5.4em;border-right-width:0.04em;border-right-style:dashed;margin:0 -0.02em;vertical-align:-2.45em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">e</span></span></span><span style="top:-1.35em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="vertical-separator" style="height:5.4em;border-right-width:0.04em;border-right-style:dashed;margin:0 -0.02em;vertical-align:-2.45em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">c</span></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span><span style="top:-1.35em;"><span class="pstrut" style="height:3.26em;"></span><span class="mord"><span class="mord mathnormal">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span style="top:-4.3em;"><span class="pstrut" style="height:4.95em;"></span><span class="hdashline" style="border-bottom-width:0.04em;"></span></span><span style="top:-6.1em;"><span class="pstrut" style="height:4.95em;"></span><span class="hline" style="border-bottom-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>c</mi></mrow><mo stretchy="true">⏟</mo></munder><mtext>Note:&nbsp;such&nbsp;math,&nbsp;much&nbsp;wow.</mtext></munder></mrow><annotation encoding="application/x-tex">\underbrace{a+b+c}_{\text{Note: such math, much wow.}}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.248em;vertical-align:-1.5535em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-1.5826em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">Note:&nbsp;such&nbsp;math,&nbsp;much&nbsp;wow.</span></span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span class="svg-align" style="top:-2.2687em;"><span class="pstrut" style="height:3em;"></span><span class="stretchy" style="height:0.548em;min-width:1.6em;"><span class="brace-left" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13
- 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688
- 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7
--331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"></path></svg></span><span class="brace-center" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M199572 214
-c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
- 53.3-86.7 123.7-153 211-199 66.7-36 137.3-56.3 212-62h199568v120H200432c-178.3
- 11.7-311.7 78.3-403 201-6 8-9.7 12-11 12-.7.7-6.7 1-18 1s-17.3-.3-18-1c-1.3 0
--5-4-11-12-44.7-59.3-101.3-106.3-170-141s-145.3-54.3-229-60H0V214z"></path></svg></span><span class="brace-right" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M399994 0l6 6v35l-6 11c-56 104-135.3 181.3-238 232-57.3
- 28.7-117 45-179 50H-300V214h399897c43.3-7 81-15 113-26 100.7-33 179.7-91 237
--174 2.7-5 6-9 10-13 .7-1 7.3-1 20-1h17z"></path></svg></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7313em;"><span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5535em;"><span></span></span></span></span></span></span></span></span></span></p>
-<h2 id="tab-panels"><span class="spec-up-heading-text">Tab Panels</span><a class="toc-anchor" href="#tab-panels">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-20">::: tabs
-
-:: First Tab
-
-This is the first tab.
-
-```json
-{
-  "foo": "foo",
-  "baz": 1
-}
-`` `
-
-:: Second Tab
-
-This is the second tab.
-
-```json
-{
-  "foo": "bar",
-  "baz": 2
-}
-`` `
-:::
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-20" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-tab-group class="spec-up-tab-group" active="first-tab"><wa-tab panel="first-tab">First Tab</wa-tab><wa-tab-panel name="first-tab"><p>This is the first tab.</p><div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-21"><span class="token punctuation">{</span>
-  <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"foo"</span><span class="token punctuation">,</span>
-  <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token number">1</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-21" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div></wa-tab-panel><wa-tab panel="second-tab">Second Tab</wa-tab><wa-tab-panel name="second-tab"><p>This is the second tab.</p><div class="spec-up-code-block-wrapper"><pre class="language-json spec-up-code-block"><code class="language-json" id="spec-up-code-copy-target-22"><span class="token punctuation">{</span>
-  <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
-  <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token number">2</span>
-<span class="token punctuation">}</span>
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-22" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div></wa-tab-panel></wa-tab-group>
-
-
-
-
-
-
-
-<h2 id="summary-blocks"><span class="spec-up-heading-text">Summary Blocks</span><a class="toc-anchor" href="#summary-blocks">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-23">::: summary My summary text here
-Details of what I want to show here.
-:::
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-23" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-details class="spec-up-details" summary="My summary text here">
-<p>Details of what I want to show here.</p>
-</wa-details>
-<h2 id="badges"><span class="spec-up-heading-text">Badges</span><a class="toc-anchor" href="#badges">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-24">[[badge: All Systems Operational]]
-[[badge: Needs Attention, warning]]
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-24" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p><wa-badge variant="brand">All Systems Operational</wa-badge>
-<wa-badge variant="warning">Needs Attention</wa-badge></p>
-<h2 id="progress"><span class="spec-up-heading-text">Progress</span><a class="toc-anchor" href="#progress">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-25">[[progress: bar, 50]]
-
-[[progress: ring, 75]]
-
-[[progress: bar, 50, 50%]]
-
-[[progress: ring, 75, 3rem]]
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-25" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p><wa-progress-bar value="50">50%</wa-progress-bar></p>
-<p><wa-progress-ring value="75">75%</wa-progress-ring></p>
-<p><wa-progress-bar value="50" style="width: 50%;">50%</wa-progress-bar></p>
-<p><wa-progress-ring value="75" style="--size: 3rem;">75%</wa-progress-ring></p>
-<h2 id="relative-time"><span class="spec-up-heading-text">Relative Time</span><a class="toc-anchor" href="#relative-time">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-26">[[time: 2020-07-15T09:17:00-04:00, long]]
-
-[[time: 2020-07-15T09:17:00-04:00, short]]
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-26" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p><wa-relative-time date="2020-07-15T09:17:00-04:00" format="long"></wa-relative-time></p>
-<p><wa-relative-time date="2020-07-15T09:17:00-04:00" format="short"></wa-relative-time></p>
-<h2 id="copy"><span class="spec-up-heading-text">Copy</span><a class="toc-anchor" href="#copy">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-27">[[copy: did:key:z6Mkf4XhsxVYQ1nQ6V6k4Q9j7xVjQm1Qw9Yk6B8JfP3L2mN4]]
-
-[[copy: https://github.com/decentralized-identity/spec-up]]
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-27" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p><span class="spec-up-copy-line"><span class="spec-up-copy-text" id="spec-up-copy-target-1">did:key:z6Mkf4XhsxVYQ1nQ6V6k4Q9j7xVjQm1Qw9Yk6B8JfP3L2mN4</span><wa-copy-button class="spec-up-copy-button" from="spec-up-copy-target-1" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></span></p>
-<p><span class="spec-up-copy-line"><span class="spec-up-copy-text" id="spec-up-copy-target-2">https://github.com/decentralized-identity/spec-up</span><wa-copy-button class="spec-up-copy-button" from="spec-up-copy-target-2" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></span></p>
-<h2 id="qr-codes"><span class="spec-up-heading-text">QR Codes</span><a class="toc-anchor" href="#qr-codes">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-28">[[qr: github.com/csuwildcat]]
-
-[[qr: github.com/csuwildcat, 200]]
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-28" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<p><wa-qr-code value="github.com/csuwildcat"></wa-qr-code></p>
-<p><wa-qr-code value="github.com/csuwildcat" size="200"></wa-qr-code></p>
-<h2 id="carousel"><span class="spec-up-heading-text">Carousel</span><a class="toc-anchor" href="#carousel">§</a></h2>
-<div class="spec-up-code-block-wrapper"><pre class="language-markdown spec-up-code-block"><code class="language-markdown" id="spec-up-code-copy-target-29">::: carousel
-
-<span class="token url"><span class="token operator">!</span>[<span class="token content">Carousel panel one</span>](<span class="token url">single-file-test/assets/carousel-panel-1.svg</span> <span class="token string">"Carousel Panel One"</span>)</span>
-
-::
-
-<span class="token url"><span class="token operator">!</span>[<span class="token content">Carousel panel two</span>](<span class="token url">single-file-test/assets/carousel-panel-2.svg</span> <span class="token string">"Carousel Panel Two"</span>)</span>
-
-::
-
-<span class="token url"><span class="token operator">!</span>[<span class="token content">Carousel panel three</span>](<span class="token url">single-file-test/assets/carousel-panel-3.svg</span> <span class="token string">"Carousel Panel Three"</span>)</span>
-
-:::
-</code></pre><wa-copy-button class="spec-up-code-copy-button" from="spec-up-code-copy-target-29" copy-label="Copy" success-label="Copied" error-label="Copy failed"></wa-copy-button></div>
-<wa-carousel class="spec-up-carousel" loop="" navigation="" pagination="" mouse-dragging=""><wa-carousel-item><p><img src="single-file-test/assets/carousel-panel-1.svg" alt="Carousel panel one" title="Carousel Panel One"></p></wa-carousel-item><wa-carousel-item><p><img src="single-file-test/assets/carousel-panel-2.svg" alt="Carousel panel two" title="Carousel Panel Two"></p></wa-carousel-item><wa-carousel-item><p><img src="single-file-test/assets/carousel-panel-3.svg" alt="Carousel panel three" title="Carousel Panel Three"></p></wa-carousel-item></wa-carousel>
-
-
-
-
-
-
-<h2 id="fancy-links"><span class="spec-up-heading-text">Fancy Links</span><a class="toc-anchor" href="#fancy-links">§</a></h2>
-<p>Spec-Up automatically upgrades the links of certain sites, like GitHub. GitHub is the only supported site with Fancy Links right now, but we’ll be adding more as we go.</p>
-<h3 id="github"><span class="spec-up-heading-text">GitHub</span><a class="toc-anchor" href="#github">§</a></h3>
+<h2 id="implementation-notes"><span class="spec-up-heading-text">Implementation notes</span><a class="toc-anchor" href="#implementation-notes">§</a></h2>
+<p>Subject agency state must be derived from observable inputs — presence, responsiveness, engagement patterns, behavioral baselines — not from a binary flag set at issuance. Evaluation must be continuous, not checked once at session establishment.</p>
+<p>Transitions between states are governance events. Every transition must be documented with the triggering condition, the timestamp, the authority path activated, and the actions taken under each path.</p>
+<p>The pre-expressed intent that governs at Impaired, Unresponsive, and Permanently incapacitated states must be captured before those states occur. It cannot be overridden by instructions given during a compromised subject agency state.</p>
+<p>No current authorization framework specifies how subject agency state is derived, how it is carried in authorization flows, or how it triggers authority path transitions. This table describes requirements for a runtime governance layer that does not yet exist as a standard.</p>
+<h2 id="patent-policy"><span class="spec-up-heading-text">Patent Policy</span><a class="toc-anchor" href="#patent-policy">§</a></h2>
+<p>The Decentralized Identity Foundation has adopted the W3C Patent Policy (2004), as detailed below:</p>
 <ul>
-<li><strong>Issues</strong>
-<ul>
-<li>Source: <code>https://github.com/decentralized-identity/presentation-exchange/issues/119</code></li>
-<li>Render: <a path-0="github.com" path-1="decentralized-identity" path-2="presentation-exchange" path-3="issues" path-4="119" href="https://github.com/decentralized-identity/presentation-exchange/issues/119"><span>https://github.com/decentralized-identity/presentation-exchange/issues/119</span></a></li>
-</ul>
+<li>
+<p>Licensing Commitment. Each contributor agrees to make available any of its
+Essential Claims, as defined in the W3C Patent Policy (available at
+<a path-0="www.w3.org" path-1="Consortium" path-2="Patent-Policy-20040205" href="http://www.w3.org/Consortium/Patent-Policy-20040205" ><span>http://www.w3.org/Consortium/Patent-Policy-20040205</span></a>), under the W3C RF licensing
+requirements Section 5 (<a path-0="www.w3.org" path-1="Consortium" path-2="Patent-Policy-20040205" href="http://www.w3.org/Consortium/Patent-Policy-20040205" ><span>http://www.w3.org/Consortium/Patent-Policy-20040205</span></a>), as
+if the contribution was contained in or associated with a W3C Recommendation.</p>
 </li>
-<li><strong>Pull Requests</strong>
-<ul>
-<li>Source: <code>https://github.com/decentralized-identity/sidetree/pull/863</code></li>
-<li>Render: <a path-0="github.com" path-1="decentralized-identity" path-2="sidetree" path-3="pull" path-4="863" href="https://github.com/decentralized-identity/sidetree/pull/863"><span>https://github.com/decentralized-identity/sidetree/pull/863</span></a></li>
-</ul>
-</li>
-<li><strong>Releases</strong>
-<ul>
-<li>Source: <code>https://github.com/decentralized-identity/sidetree/releases/tag/v0.9.1</code></li>
-<li>Render: <a path-0="github.com" path-1="decentralized-identity" path-2="sidetree" path-3="releases" path-4="tag" path-5="v0.9.1" href="https://github.com/decentralized-identity/sidetree/releases/tag/v0.9.1"><span>https://github.com/decentralized-identity/sidetree/releases/tag/v0.9.1</span></a></li>
-</ul>
-</li>
-<li><strong>Projects</strong>
-<ul>
-<li>Source: <code>https://github.com/decentralized-identity/sidetree/projects/1</code></li>
-<li>Render: <a path-0="github.com" path-1="decentralized-identity" path-2="sidetree" path-3="projects" path-4="1" href="https://github.com/decentralized-identity/sidetree/projects/1"><span>https://github.com/decentralized-identity/sidetree/projects/1</span></a></li>
-</ul>
+<li>
+<p>For Exclusion. Prior to committing any code, bug reports, pull requests, or
+other forms of contribution, a contributor may exclude Essential Claims from its
+licensing commitments under this agreement by providing written notice of that
+intent to DIF’s Executive Director (and must received confirmation of receipt
+for the exclusion to have effect).
+The Exclusion Notice for issued patents and
+published applications must include the patent number(s) or title and
+application number(s), as the case may be, for each of the issued patent(s) or
+pending patent application(s) that the contributor wishes to exclude from the
+licensing commitment set forth in Section 1 of this patent policy.
+If an issued
+patent or pending patent application that may contain Essential Claims is not
+set forth in the Exclusion Notice, those Essential Claims shall continue to be
+subject to the licensing commitments under this agreement.
+The Exclusion Notice
+for unpublished patent applications must provide either: (i) the text of the
+filed application; or (ii) identification of the specific part(s) of the
+contribution whose implementation makes the excluded claim an Essential Claim.
+If (ii) is chosen, the effect of the exclusion will be limited to the identified
+part(s) of the contribution.
+DIF’s Executive Director will publish Exclusion
+Notices.</p>
 </li>
 </ul>
-<h2 id="external-spec-references"><span class="spec-up-heading-text">External Spec References</span><a class="toc-anchor" href="#external-spec-references">§</a></h2>
-<p>You can reference external specifications from IETF, W3C, and WHATWG as follows:</p>
-<ol>
-<li>Anywhere in your document you want to referece an external specification, use the <code>spec</code>-prefixed custom token format: <code>[[spec:RFC4122]]</code></li>
-<li>Wherever in your document you want to print out all your external specification references, use the <code>spec</code> custom token format <em>without any spec name</em>: <code>[[spec]]</code></li>
-</ol>
-<ul>
-<li>If you want to split up your references into groups (e.g. normative vs informative), just make sure to use dash-delimited unique reference grouping string in your custom tokens: <code>[[spec-norm:RFC4122]]</code>, <code>[[spec-inform:RFC4122]]</code>, <code>[[spec-foo:RFC4122]]</code>, etc.</li>
-<li>To print out a custom group’s references, just include the grouping string for a given set of references in a custom token <em>without any spec name</em>: <code>[[spec-norm]]</code>, <code>[[spec-inform]]</code>, <code>[[spec-foo]]</code>.</li>
-</ul>
-<p>Here are a set of example references that are distributed among the reference groups <code>spec</code>, <code>spec-norm</code>, <code>spec-inform</code>:</p>
-<ul>
-<li>[<a class="spec-reference" href="#ref:RFC3548">RFC3548</a>] (<code>[[spec:RFC3548]]</code>)</li>
-<li>[<a class="spec-reference" href="#ref:RFC7518">RFC7518</a>] (<code>[[spec:RFC7518]]</code>)</li>
-<li>[<a class="spec-reference" href="#ref:DID-CORE">DID-CORE</a>] (<code>[[spec-norm:DID-CORE]]</code>)</li>
-<li>[<a class="spec-reference" href="#ref:DID-SPEC-REGISTRIES">DID-SPEC-REGISTRIES</a>] (<code>[[spec-norm:DID-SPEC-REGISTRIES]]</code>)</li>
-<li>[<a class="spec-reference" href="#ref:RFC6901">RFC6901</a>] (<code>[[spec-inform:RFC6901]]</code>)</li>
-<li>[<a class="spec-reference" href="#ref:RFC7230">RFC7230</a>] (<code>[[spec-inform:RFC7230]]</code>)</li>
-</ul>
-<h3 id="default-references"><span class="spec-up-heading-text">Default References</span><a class="toc-anchor" href="#default-references">§</a></h3>
-<p>This is what is printed out when you include the <code>[[spec]]</code> custom token in your Markdown:</p>
-<p>
-</p><dl class="reference-list">
-      <dt id="ref:RFC3548">RFC3548</dt>
-      <dd>
-        <cite><a href="https://www.rfc-editor.org/rfc/rfc3548">The Base16, Base32, and Base64 Data Encodings</a></cite>.
-        S. Josefsson, Ed.; 2003-07. <span class="reference-status">Status: Informational</span>.
-      </dd>
-    
-      <dt id="ref:RFC7518">RFC7518</dt>
-      <dd>
-        <cite><a href="https://www.rfc-editor.org/rfc/rfc7518">JSON Web Algorithms (JWA)</a></cite>.
-        M. Jones; 2015-05. <span class="reference-status">Status: Proposed Standard</span>.
-      </dd>
-    
-</dl>
-<p></p>
-<h3 id="normative-references"><span class="spec-up-heading-text">Normative References</span><a class="toc-anchor" href="#normative-references">§</a></h3>
-<p>This is what is printed out when you include the <code>[[spec-norm]]</code> custom token in your Markdown:</p>
-<p>
-</p><dl class="reference-list">
-      <dt id="ref:DID-CORE">DID-CORE</dt>
-      <dd>
-        <cite><a href="https://www.w3.org/TR/did-core/">Decentralized Identifiers (DIDs) v1.0</a></cite>.
-        Manu Sporny; Amy Guy; Markus Sabadello; Drummond Reed; 2022-07-19. <span class="reference-status">Status: REC</span>.
-      </dd>
-    
-      <dt id="ref:DID-SPEC-REGISTRIES">DID-SPEC-REGISTRIES</dt>
-      <dd>
-        <cite><a href="https://www.w3.org/TR/did-spec-registries/">DID Specification Registries</a></cite>.
-        Orie Steele; Manu Sporny; 2023-09-11. <span class="reference-status">Status: NOTE</span>.
-      </dd>
-    
-</dl>
-<p></p>
-<h3 id="informative-references"><span class="spec-up-heading-text">Informative References</span><a class="toc-anchor" href="#informative-references">§</a></h3>
-<p>This is what is printed out when you include the <code>[[spec-inform]]</code> custom token in your Markdown:</p>
-<p>
-</p><dl class="reference-list">
-      <dt id="ref:RFC6901">RFC6901</dt>
-      <dd>
-        <cite><a href="https://www.rfc-editor.org/rfc/rfc6901">JavaScript Object Notation (JSON) Pointer</a></cite>.
-        P. Bryan, Ed.; K. Zyp; M. Nottingham, Ed.; 2013-04. <span class="reference-status">Status: Proposed Standard</span>.
-      </dd>
-    
-      <dt id="ref:RFC7230">RFC7230</dt>
-      <dd>
-        <cite><a href="https://httpwg.org/specs/rfc7230.html">Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</a></cite>.
-        R. Fielding, Ed.; J. Reschke, Ed.; 2014-06. <span class="reference-status">Status: Proposed Standard</span>.
-      </dd>
-    
-</dl>
-<p></p>
 
             </article>
           </main>
@@ -882,95 +651,8 @@ Details of what I want to show here.
       </wa-drawer>
     
 
-        <div style="display: none;"><dl id="PE"><dt><span id="term:PE:claims"><span id="term:claim">Claim</span></span></dt><dd>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
-Credential, Assertion, Attestation, etc.</dd><dt><span id="term:PE:claims"><span id="term:PE:claim">Claim</span></span></dt><dd>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
-Credential, Assertion, Attestation, etc.</dd><dt><span id="term:PE:conformant-consumers"><span id="term:conformant-consumer">Conformant Consumer</span></span></dt><dd>An entity that follows the specified processing rules to consume a
-<a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> or <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a> that conforms
-to this specification.</dd><dt><span id="term:PE:conformant-consumers"><span id="term:PE:conformant-consumer">Conformant Consumer</span></span></dt><dd>An entity that follows the specified processing rules to consume a
-<a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> or <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a> that conforms
-to this specification.</dd><dt><span id="term:PE:conformant-producer">Conformant Producer</span></dt><dd>An entity that produces a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> or
-<a class="term-reference" href="#term:presentation-submission">Presentation Submission</a> that conforms to this specification.</dd><dt><span id="term:PE:embed-locations">Embed Locations</span></dt><dd>Embed Locations are the specific paths and indexes per <a class="term-reference" href="#term:embed-target">Embed Target</a>
-where the <a class="term-reference" href="#term:verifier">Verifier</a> can expect to find the <a class="term-reference" href="#term:presentation">Presentation</a>. See <a href="#embed-locations">Embed Locations</a>.</dd><dt><span id="term:PE:embed-targets"><span id="term:embed-target">Embed Target</span></span></dt><dd>Embed Targets are data formats used in messaging protocols that may be used
-to transport a <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>. See
-<a href="#embed-targets">Embed Targets</a>.</dd><dt><span id="term:PE:embed-targets"><span id="term:PE:embed-target">Embed Target</span></span></dt><dd>Embed Targets are data formats used in messaging protocols that may be used
-to transport a <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>. See
-<a href="#embed-targets">Embed Targets</a>.</dd><dt><span id="term:PE:features"><span id="term:feature">Feature</span></span></dt><dd>Features enable <a class="term-reference" href="#term:verifiers">Verifiers</a> to express, and <a class="term-reference" href="#term:holders">Holders</a> to support,
-extended functionality (relative to the base objects) by defining one or more
-properties on one or more objects.</dd><dt><span id="term:PE:features"><span id="term:PE:feature">Feature</span></span></dt><dd>Features enable <a class="term-reference" href="#term:verifiers">Verifiers</a> to express, and <a class="term-reference" href="#term:holders">Holders</a> to support,
-extended functionality (relative to the base objects) by defining one or more
-properties on one or more objects.</dd><dt><span id="term:PE:holders"><span id="term:holder">Holder</span></span></dt><dd>Holders are entities that submit proofs to <a class="term-reference" href="#term:verifiers">Verifiers</a> to satisfy the
-requirements described in a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a>. A Holder is a
-<a class="term-reference" href="#term:conformant-consumer">Conformant Consumer</a> of a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> and a
-<a class="term-reference" href="#term:conformant-producer">Conformant Producer</a> of a <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>.</dd><dt><span id="term:PE:holders"><span id="term:PE:holder">Holder</span></span></dt><dd>Holders are entities that submit proofs to <a class="term-reference" href="#term:verifiers">Verifiers</a> to satisfy the
-requirements described in a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a>. A Holder is a
-<a class="term-reference" href="#term:conformant-consumer">Conformant Consumer</a> of a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> and a
-<a class="term-reference" href="#term:conformant-producer">Conformant Producer</a> of a <a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>.</dd><dt><span id="term:PE:holder-binding">Holder Binding</span></dt><dd>Holder Bindings are requirements of a certain type of relationship between
-the <a class="term-reference" href="#term:holder">Holder</a> and the <a class="term-reference" href="#term:claims">Claims</a> within the <a class="term-reference" href="#term:presentation">Presentation</a>. See <a href="#holder-and-subject-binding">Holder Binding</a>.</dd><dt><span id="term:PE:dwn"><span id="term:decentralized-web-node">Decentralized Web Node</span></span></dt><dd>Some examples refer to an unfamiliar query protocol, <code>dwn://</code>, as a way of
-storing and querying schemata and other resources. While orthogonal to this
-specification and not yet on a standards track, the concept of “decentralized web nodes”
-proposes an architecture that may be of interest or utility to implementers of
-this specification. For more information, see the draft specification
-hosted at the decentralized identity foundation
-<a path-0="identity.foundation" path-1="decentralized-web-node" path-2="spec" path-3="" href="https://identity.foundation/decentralized-web-node/spec/">here</a></dd><dt><span id="term:PE:dwn"><span id="term:PE:decentralized-web-node">Decentralized Web Node</span></span></dt><dd>Some examples refer to an unfamiliar query protocol, <code>dwn://</code>, as a way of
-storing and querying schemata and other resources. While orthogonal to this
-specification and not yet on a standards track, the concept of “decentralized web nodes”
-proposes an architecture that may be of interest or utility to implementers of
-this specification. For more information, see the draft specification
-hosted at the decentralized identity foundation
-<a path-0="identity.foundation" path-1="decentralized-web-node" path-2="spec" path-3="" href="https://identity.foundation/decentralized-web-node/spec/">here</a></dd><dt><span id="term:PE:input-descriptors"><span id="term:input-descriptor">Input Descriptor</span></span></dt><dd>Input Descriptors are used by a Verifier to describe the information required
-of a <a class="term-reference" href="#term:holder">Holder</a> before an interaction can proceed. See
-<a href="#input-descriptor">Input Descriptor</a>.</dd><dt><span id="term:PE:input-descriptors"><span id="term:PE:input-descriptor">Input Descriptor</span></span></dt><dd>Input Descriptors are used by a Verifier to describe the information required
-of a <a class="term-reference" href="#term:holder">Holder</a> before an interaction can proceed. See
-<a href="#input-descriptor">Input Descriptor</a>.</dd><dt><span id="term:PE:input-descriptor-objects"><span id="term:input-descriptor-object">Input Descriptor Object</span></span></dt><dd>Input Descriptors Objects are populated with properties describing what type
-of input data/<a class="term-reference" href="#term:claim">Claim</a>, or sub-fields thereof, are required for submission
-to the <a class="term-reference" href="#term:verifier">Verifier</a>. See
-<a href="#input-descriptor-object">Input Descriptor Object</a>.</dd><dt><span id="term:PE:input-descriptor-objects"><span id="term:PE:input-descriptor-object">Input Descriptor Object</span></span></dt><dd>Input Descriptors Objects are populated with properties describing what type
-of input data/<a class="term-reference" href="#term:claim">Claim</a>, or sub-fields thereof, are required for submission
-to the <a class="term-reference" href="#term:verifier">Verifier</a>. See
-<a href="#input-descriptor-object">Input Descriptor Object</a>.</dd><dt><span id="term:PE:link-secrets">Link Secrets</span></dt><dd>Link Secrets are values held by the <a class="term-reference" href="#term:holder">Holder</a> but hidden from other
-parties. They are typically incorporated into cryptographic signatures used in
-claims to demonstrate correlation while preventing replay attacks. An Issuer
-may ascertain that a Holder possesses a link secret without its disclosure.
-See <a href="#link-secrets">Link Secrets</a>.</dd><dt><span id="term:PE:presentation-definition">Presentation Definition</span></dt><dd>Presentation Definitions are objects that articulate what proofs a Verifier
-requires. These help the Verifier to decide how or whether to interact with a
-<a class="term-reference" href="#term:holder">Holder</a>. Presentation Definitions are composed of inputs, which describe
-the forms and details of the proofs they require, and optional sets of
-selection rules, to allow Holders flexibility in cases where many different
-types of proofs may satisfy an input requirement. See
-<a href="#presentation-definition">Presentation Definition</a>.</dd><dt><span id="term:PE:presentation-request">Presentation Request</span></dt><dd>Presentation Requests are transport mechanisms for <a class="term-reference" href="#term:presentation">Presentation</a>. Presentation Requests can take multiple shapes, using a variety
-of protocols and signature schemes not refined in this specification. They are
-sent by a <a class="term-reference" href="#term:verifier">Verifier</a> to a <a class="term-reference" href="#term:holder">Holder</a>. Defining Presentation Requests
-is outside the scope of this specification. See
-<a href="#presentation-request">Presentation Request</a>.</dd><dt><span id="term:PE:presentation-submission">Presentation Submission</span></dt><dd>Presentation Submissions are objects embedded within target claim negotiation
-formats that unify the presentation of proofs to a <a class="term-reference" href="#term:verifier">Verifier</a> in
-accordance with the requirements a <a class="term-reference" href="#term:verifier">Verifier</a> specified in a
-<a class="term-reference" href="#term:presentation-definition">Presentation Definition</a>. See
-<a href="#presentation-submission">Presentation Submission</a>.</dd><dt><span id="term:PE:subjects"><span id="term:subject">Subject</span></span></dt><dd>Subjects are the entities about which <a class="term-reference" href="#term:claims">Claims</a> are made. The Subject may
-not be the same entity as the <a class="term-reference" href="#term:holder">Holder</a></dd><dt><span id="term:PE:subjects"><span id="term:PE:subject">Subject</span></span></dt><dd>Subjects are the entities about which <a class="term-reference" href="#term:claims">Claims</a> are made. The Subject may
-not be the same entity as the <a class="term-reference" href="#term:holder">Holder</a></dd><dt><span id="term:PE:submission-requirements"><span id="term:submission-requirement">Submission Requirement</span></span></dt><dd>Submission Requirements are objects that define what combinations of inputs
-must be submitted to comply with the requirements a <a class="term-reference" href="#term:verifier">Verifier</a> has for
-proceeding in a flow (e.g. credential issuance, allowing entry, accepting an
-application). See <a href="#submission-requirements">Submission Requirements</a>.</dd><dt><span id="term:PE:submission-requirements"><span id="term:PE:submission-requirement">Submission Requirement</span></span></dt><dd>Submission Requirements are objects that define what combinations of inputs
-must be submitted to comply with the requirements a <a class="term-reference" href="#term:verifier">Verifier</a> has for
-proceeding in a flow (e.g. credential issuance, allowing entry, accepting an
-application). See <a href="#submission-requirements">Submission Requirements</a>.</dd><dt><span id="term:PE:submission-requirement-objects"><span id="term:submission-requirement-object">Submission Requirement Object</span></span></dt><dd>Submission Requirement Objects describe valid combinations of inputs in a
-<a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>. See
-<a href="#submission-requirement-objects">Submission Requirement Objects</a>.</dd><dt><span id="term:PE:submission-requirement-objects"><span id="term:PE:submission-requirement-object">Submission Requirement Object</span></span></dt><dd>Submission Requirement Objects describe valid combinations of inputs in a
-<a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>. See
-<a href="#submission-requirement-objects">Submission Requirement Objects</a>.</dd><dt><span id="term:PE:submission-requirement-rules"><span id="term:submission-requirement-rule">Submission Requirement Rule</span></span></dt><dd>Submission Requirement Rules describe combinatorial rules within a
-<a class="term-reference" href="#term:submission-requirement-object">Submission Requirement Object</a> when processing inputs. They may be
-nested. See <a href="#submission-requirement-rules">Submission Requirement Rules</a>.</dd><dt><span id="term:PE:submission-requirement-rules"><span id="term:PE:submission-requirement-rule">Submission Requirement Rule</span></span></dt><dd>Submission Requirement Rules describe combinatorial rules within a
-<a class="term-reference" href="#term:submission-requirement-object">Submission Requirement Object</a> when processing inputs. They may be
-nested. See <a href="#submission-requirement-rules">Submission Requirement Rules</a>.</dd><dt><span id="term:PE:verifiers"><span id="term:verifier">Verifier</span></span></dt><dd>Verifiers are entities that define what proofs they require from a
-<a class="term-reference" href="#term:holder">Holder</a> (via a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a>) in order to proceed with
-an interaction. A Verifier is a <a class="term-reference" href="#term:conformant-producer">Conformant Producer</a> of a
-<a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> and a <a class="term-reference" href="#term:conformant-consumer">Conformant Consumer</a> of a
-<a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>.</dd><dt><span id="term:PE:verifiers"><span id="term:PE:verifier">Verifier</span></span></dt><dd>Verifiers are entities that define what proofs they require from a
-<a class="term-reference" href="#term:holder">Holder</a> (via a <a class="term-reference" href="#term:presentation-definition">Presentation Definition</a>) in order to proceed with
-an interaction. A Verifier is a <a class="term-reference" href="#term:conformant-producer">Conformant Producer</a> of a
-<a class="term-reference" href="#term:presentation-definition">Presentation Definition</a> and a <a class="term-reference" href="#term:conformant-consumer">Conformant Consumer</a> of a
-<a class="term-reference" href="#term:presentation-submission">Presentation Submission</a>.</dd><dt><span id="term:PE:oidc">OIDC</span></dt><dd><a path-0="openid.net" path-1="specs" path-2="openid-connect-core-1_0.html" href="https://openid.net/specs/openid-connect-core-1_0.html">Open ID Connect</a>. Jones, M., Bradley, J., and N. Sakimura. Status: Approved Specification</dd><dt><span id="term:PE:linked-data-proofs"><span id="term:linked-data-proof">Linked Data Proof</span></span></dt><dd><a path-0="w3c-ccg.github.io" path-1="data-integrity-spec" path-2="" href="https://w3c-ccg.github.io/data-integrity-spec/">Data Integrity 1.0</a>. Dave Longley, Manu Sporny. 2022-03. Status: Draft Community Group Report.</dd><dt><span id="term:PE:linked-data-proofs"><span id="term:PE:linked-data-proof">Linked Data Proof</span></span></dt><dd><a path-0="w3c-ccg.github.io" path-1="data-integrity-spec" path-2="" href="https://w3c-ccg.github.io/data-integrity-spec/">Data Integrity 1.0</a>. Dave Longley, Manu Sporny. 2022-03. Status: Draft Community Group Report.</dd><dt><span id="term:PE:json-schema-draft-7"><span id="term:json-schema">JSON Schema</span></span></dt><dd><a path-0="json-schema.org" path-1="draft-07" path-2="json-schema-release-notes.html" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema Draft-07</a>. OpenJS Foundation. 2018-03-19. Status: Internet-Draft.</dd><dt><span id="term:PE:json-schema-draft-7"><span id="term:PE:json-schema">JSON Schema</span></span></dt><dd><a path-0="json-schema.org" path-1="draft-07" path-2="json-schema-release-notes.html" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema Draft-07</a>. OpenJS Foundation. 2018-03-19. Status: Internet-Draft.</dd><dt><span id="term:PE:credential-handler-api"><span id="term:chapi">CHAPI</span></span></dt><dd><a path-0="w3c-ccg.github.io" path-1="credential-handler-api" path-2="" href="https://w3c-ccg.github.io/credential-handler-api/">W3C Credential Handler API 1.0</a>. Dave Longley, Manu Sporny. 2020-2-19. Status: Draft Community Group Report.</dd><dt><span id="term:PE:credential-handler-api"><span id="term:PE:chapi">CHAPI</span></span></dt><dd><a path-0="w3c-ccg.github.io" path-1="credential-handler-api" path-2="" href="https://w3c-ccg.github.io/credential-handler-api/">W3C Credential Handler API 1.0</a>. Dave Longley, Manu Sporny. 2020-2-19. Status: Draft Community Group Report.</dd><dt><span id="term:PE:didcomm">DIDComm</span></dt><dd><a path-0="github.com" path-1="decentralized-identity" path-2="didcomm-messaging" href="https://github.com/decentralized-identity/didcomm-messaging">DIF DIDComm Messaging</a>. Daniel Hardman, Sam Curren. Status: Working Group Draft.</dd></dl></div>
-        <template id="spec_up_config">{&quot;title&quot;:&quot;Spec-Up Example&quot;,&quot;spec_directory&quot;:&quot;./single-file-test&quot;,&quot;output_path&quot;:&quot;./&quot;,&quot;logo&quot;:&quot;logo.svg&quot;,&quot;logo_link&quot;:&quot;https://github.com/decentralized-identity/spec-up&quot;,&quot;source&quot;:{&quot;host&quot;:&quot;github&quot;,&quot;account&quot;:&quot;decentralized-identity&quot;,&quot;repo&quot;:&quot;spec-up&quot;},&quot;external_specs&quot;:[{&quot;PE&quot;:&quot;https://identity.foundation/presentation-exchange&quot;}],&quot;katex&quot;:true}</template>
+        
+        <template id="spec_up_config">{&quot;title&quot;:&quot;Delegated Authority Threat Model v1.0 Preview&quot;,&quot;spec_directory&quot;:&quot;./spec&quot;,&quot;output_path&quot;:&quot;./&quot;,&quot;logo&quot;:&quot;./logo.svg&quot;,&quot;logo_link&quot;:&quot;https://identity.foundation/working-groups/trusted-agents.html&quot;,&quot;source&quot;:{&quot;host&quot;:&quot;github&quot;,&quot;account&quot;:&quot;decentralized-identity&quot;,&quot;repo&quot;:&quot;delegated-authority-threat-model&quot;},&quot;external_specs&quot;:[],&quot;katex&quot;:true}</template>
         <script src="assets/compiled/body.js"></script>
       </body>
     </html>

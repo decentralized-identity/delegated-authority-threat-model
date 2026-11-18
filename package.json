@@ -1,13 +1,14 @@
 {
-  "name": "spec-up",
-  "version": "0.11.6",
-  "description": "Technical specification drafting tool that generates rich specification documents from markdown.",
+  "name": "delegated-authority-threat-model",
+  "version": "0.0.1",
+  "description": "Delegated Authority Threat Model (DIF TAAWG)",
+  "private": true,
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/decentralized-identity/spec-up.git"
+    "url": "git+https://github.com/decentralized-identity/delegated-authority-threat-model.git"
   },
   "scripts": {
     "build": "vite build",
@@ -16,7 +17,8 @@
     "dev:dns": "node ./scripts/dev-dns.mjs",
     "edit": "vite build --watch",
     "refs": "node ./scripts/fetch-spec-refs.js",
-    "render": "vite build",
+    "preview": "vite preview --outDir . --host localhost --port 4173",
+    "render": "npm run build",
     "test": "node --test test/*.test.js"
   },
   "keywords": [
@@ -26,12 +28,12 @@
     "editor",
     "standards"
   ],
-  "author": "Daniel Buchner",
-  "license": "Apache 2.0",
+  "author": "DIF Trusted AI Agents Working Group",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/decentralized-identity/spec-up/issues"
+    "url": "https://github.com/decentralized-identity/delegated-authority-threat-model/issues"
   },
-  "homepage": "https://github.com/decentralized-identity/spec-up#readme",
+  "homepage": "https://identity.foundation/delegated-authority-threat-model",
   "engines": {
     "node": ">=18"
   },
@@ -48,7 +50,7 @@
     "jsdom": "26.1.0",
     "katex": "0.16.22",
     "lit": "^3.3.2",
-    "markdown-it": "14.1.1",
+    "markdown-it": "^14.2.0",
     "markdown-it-attrs": "4.3.1",
     "markdown-it-chart": "^0.2.0",
     "markdown-it-container": "^2.0.0",
@@ -69,6 +71,6 @@
     "style-observer": "^0.1.2"
   },
   "devDependencies": {
-    "vite": "6.4.2"
+    "vite": "^6.4.3"
   }
 }

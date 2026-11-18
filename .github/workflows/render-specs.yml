@@ -43,6 +43,7 @@ jobs:
           cp -R assets .site/assets
           cp -R fonts .site/fonts
           cp -R spec .site/spec
+          cp -R v1.0-rc1 .site/v1.0-rc1
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
