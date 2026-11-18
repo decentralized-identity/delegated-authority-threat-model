@@ -20,7 +20,6 @@ Editors:
 Contributors:
 
 ~ [Juan Caballero](https://www.linkedin.com/in/juan-caballero/)  ([learningProof UG](https://learningproof.xyz/))
-~ [Victor Lu](https://www.linkedin.com/in/luvictor/) - (Independent)
 ~ [Alan Karp](https://www.linkedin.com/in/alanhkarp/) - [SitePassword](https://github.com/alanhkarp/SitePassword/)
 
 Participate:
